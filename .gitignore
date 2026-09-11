@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+.yarn/
+.pnp.*
+
+# Build outputs
+.next/
+.build/
+out/
+dist/
+build/
+
+# Environment variables
+.env
+.env*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Misc
+.cache/
