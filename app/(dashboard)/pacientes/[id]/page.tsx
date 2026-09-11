@@ -31,7 +31,8 @@ export default function PacienteDetallePage({ params }: { params: Promise<{ id: 
 
   const tratamientos = paciente?.tratamientosPaciente ?? []
   const totalCosto = tratamientos.reduce((s: number, t: any) => s + (t?.costoTotal ?? 0), 0)
-  const totalAbonado = tratamientos.reduce((s: number, t: any) => s + ((t?.abonos ?? []).reduce((a: number, ab: any) => a + (ab?.monto ?? 0), 0)), 0)
+  // Suma TODOS los abonos del paciente (ligados o no a un tratamiento)
+  const totalAbonado = (paciente?.abonos ?? []).reduce((a: number, ab: any) => a + (ab?.monto ?? 0), 0)
   const porPagar = totalCosto - totalAbonado
 
   return (
