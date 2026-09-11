@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
-import { Stethoscope, Plus, Search, Edit, DollarSign } from 'lucide-react'
+import { Stethoscope, Plus, Search, Edit, Coins } from 'lucide-react'
 import { toast } from 'sonner'
 
 const categorias = ['Implantología', 'Odontología General', 'Endodoncia', 'Ortodoncia', 'Cirugía', 'Estética', 'Periodoncia', 'Prótesis', 'Otro']
@@ -72,7 +72,7 @@ export default function TratamientosPage() {
                 {t.categoria && <p className="text-xs text-[#2563EB] mb-2">{t.categoria}</p>}
                 {t.descripcion && <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{t.descripcion}</p>}
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1 font-bold text-[#1B2E6B]"><DollarSign className="w-4 h-4" />{formatLps(t.precio)}</span>
+                  <span className="flex items-center gap-1 font-bold text-[#1B2E6B]"><Coins className="w-4 h-4" />{formatLps(t.precio)}</span>
                   {t.duracionMinutos && <span className="text-xs text-muted-foreground">{t.duracionMinutos} min</span>}
                 </div>
               </CardContent>

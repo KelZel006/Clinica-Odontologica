@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ArrowLeft, User, Phone, Mail, MapPin, Heart, CalendarDays, DollarSign, FileText, Stethoscope } from 'lucide-react'
+import { ArrowLeft, User, Phone, Mail, MapPin, Heart, CalendarDays, Coins, FileText, Stethoscope } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 const OdontogramaInteractivo = dynamic(() => import('@/components/app/odontograma'), { ssr: false, loading: () => <div className="h-96 flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1B2E6B]"></div></div> })
@@ -61,7 +61,7 @@ export default function PacienteDetallePage({ params }: { params: Promise<{ id: 
           <TabsTrigger value="odontograma"><Stethoscope className="w-4 h-4 mr-1" /> Odontograma</TabsTrigger>
           <TabsTrigger value="tratamientos"><Heart className="w-4 h-4 mr-1" /> Tratamientos</TabsTrigger>
           <TabsTrigger value="citas"><CalendarDays className="w-4 h-4 mr-1" /> Citas</TabsTrigger>
-          <TabsTrigger value="abonos"><DollarSign className="w-4 h-4 mr-1" /> Abonos</TabsTrigger>
+          <TabsTrigger value="abonos"><Coins className="w-4 h-4 mr-1" /> Abonos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="info" className="mt-4">

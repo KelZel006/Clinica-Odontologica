@@ -7,7 +7,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { cn } from '@/lib/utils'
 import {
   LayoutDashboard, Users, CalendarDays, Stethoscope,
-  DollarSign, UserCog, Settings, LogOut, Menu, X, ChevronDown
+  Wallet, UserCog, Settings, LogOut, Menu, X, ChevronDown
 } from 'lucide-react'
 
 const menuItems = [
@@ -15,7 +15,7 @@ const menuItems = [
   { href: '/pacientes', label: 'Pacientes', icon: Users },
   { href: '/citas', label: 'Citas', icon: CalendarDays },
   { href: '/tratamientos', label: 'Tratamientos', icon: Stethoscope },
-  { href: '/finanzas', label: 'Finanzas', icon: DollarSign },
+  { href: '/finanzas', label: 'Cobros', icon: Wallet },
   { href: '/usuarios', label: 'Usuarios', icon: UserCog },
   { href: '/configuracion', label: 'Configuración', icon: Settings },
 ]

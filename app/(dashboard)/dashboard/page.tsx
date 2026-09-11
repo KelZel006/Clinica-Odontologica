@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CalendarDays, Users, Stethoscope, TrendingUp, DollarSign, Clock, CreditCard, AlertCircle } from 'lucide-react'
+import { CalendarDays, Users, Stethoscope, TrendingUp, Coins, Clock, CreditCard, AlertCircle } from 'lucide-react'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts'
@@ -34,7 +34,7 @@ export default function DashboardPage() {
   ]
 
   const financial = [
-    { label: 'Ingresos Hoy', value: formatLps(data?.ingresosHoy ?? 0), icon: DollarSign, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Ingresos Hoy', value: formatLps(data?.ingresosHoy ?? 0), icon: Coins, color: 'text-emerald-600', bg: 'bg-emerald-50' },
     { label: 'Ingresos del Mes', value: formatLps(data?.ingresosMes ?? 0), icon: TrendingUp, color: 'text-[#2563EB]', bg: 'bg-blue-50' },
     { label: 'Total Abonado', value: formatLps(data?.totalAbonado ?? 0), icon: CreditCard, color: 'text-[#1B2E6B]', bg: 'bg-indigo-50' },
     { label: 'Por Pagar', value: formatLps(data?.porPagar ?? 0), icon: AlertCircle, color: 'text-orange-600', bg: 'bg-orange-50' },

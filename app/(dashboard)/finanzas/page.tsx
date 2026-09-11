@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
-import { DollarSign, Plus, CreditCard, TrendingUp, AlertCircle } from 'lucide-react'
+import { Wallet, Plus, CreditCard, TrendingUp, AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 const metodosPago = ['Efectivo', 'Transferencia bancaria', 'Tarjeta', 'Depósito bancario', 'Otro']
@@ -17,6 +17,7 @@ export default function FinanzasPage() {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [pacientes, setPacientes] = useState<any[]>([])
+  const [porPagar, setPorPagar] = useState<number | null>(null)
   const [form, setForm] = useState({ pacienteId: '', monto: 0, metodoPago: 'Efectivo', numeroRecibo: '', observaciones: '' })
 
   const fetchAbonos = () => {
@@ -25,6 +26,8 @@ export default function FinanzasPage() {
   }
   useEffect(() => { fetchAbonos() }, [])
   useEffect(() => { fetch('/api/pacientes').then(r => r.json()).then(d => setPacientes(Array.isArray(d) ? d : [])) }, [])
+  const fetchResumen = () => { fetch('/api/dashboard').then(r => r.json()).then(d => setPorPagar(d?.porPagar ?? null)).catch(() => setPorPagar(null)) }
+  useEffect(() => { fetchResumen() }, [])
 
   const totalAbonado = (abonos ?? []).reduce((s: number, a: any) => s + (a?.monto ?? 0), 0)
 
@@ -33,7 +36,7 @@ export default function FinanzasPage() {
     const res = await fetch('/api/abonos', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
     })
-    if (res.ok) { toast.success('Abono registrado'); setOpen(false); fetchAbonos(); setForm({ pacienteId: '', monto: 0, metodoPago: 'Efectivo', numeroRecibo: '', observaciones: '' }) }
+    if (res.ok) { toast.success('Abono registrado'); setOpen(false); fetchAbonos(); fetchResumen(); setForm({ pacienteId: '', monto: 0, metodoPago: 'Efectivo', numeroRecibo: '', observaciones: '' }) }
     else { toast.error('Error al registrar abono') }
   }
 
@@ -41,7 +44,7 @@ export default function FinanzasPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-display font-bold tracking-tight flex items-center gap-2"><DollarSign className="w-6 h-6 text-[#1B2E6B]" /> Finanzas</h1>
+          <h1 className="text-2xl font-display font-bold tracking-tight flex items-center gap-2"><Wallet className="w-6 h-6 text-[#1B2E6B]" /> Cobros</h1>
           <p className="text-sm text-muted-foreground">Control de abonos y pagos</p>
         </div>
         <Button className="bg-[#1B2E6B]" onClick={() => setOpen(true)}><Plus className="w-4 h-4 mr-2" /> Registrar Abono</Button>
@@ -50,7 +53,7 @@ export default function FinanzasPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card><CardContent className="p-5 flex items-center gap-4"><div className="bg-emerald-50 p-3 rounded-xl"><TrendingUp className="w-6 h-6 text-emerald-600" /></div><div><p className="text-lg font-bold font-mono">{formatLps(totalAbonado)}</p><p className="text-xs text-muted-foreground">Total Abonado</p></div></CardContent></Card>
         <Card><CardContent className="p-5 flex items-center gap-4"><div className="bg-blue-50 p-3 rounded-xl"><CreditCard className="w-6 h-6 text-[#2563EB]" /></div><div><p className="text-lg font-bold font-mono">{abonos?.length ?? 0}</p><p className="text-xs text-muted-foreground">Total de Abonos</p></div></CardContent></Card>
-        <Card><CardContent className="p-5 flex items-center gap-4"><div className="bg-orange-50 p-3 rounded-xl"><AlertCircle className="w-6 h-6 text-orange-600" /></div><div><p className="text-lg font-bold font-mono">Lps --</p><p className="text-xs text-muted-foreground">Por Pagar</p></div></CardContent></Card>
+        <Card><CardContent className="p-5 flex items-center gap-4"><div className="bg-orange-50 p-3 rounded-xl"><AlertCircle className="w-6 h-6 text-orange-600" /></div><div><p className="text-lg font-bold font-mono text-orange-600">{porPagar === null ? 'Lps --' : formatLps(porPagar)}</p><p className="text-xs text-muted-foreground">Por Pagar</p></div></CardContent></Card>
       </div>
 
       {loading ? (
