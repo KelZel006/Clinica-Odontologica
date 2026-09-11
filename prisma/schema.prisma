@@ -1,0 +1,322 @@
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+    output = "/home/ubuntu/clinica_odontologica/nextjs_space/node_modules/.prisma/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id            String    @id @default(cuid())
+  nombre        String
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  password      String?
+  image         String?
+  rol           String    @default("recepcionista")
+  activo        Boolean   @default(true)
+  telefono      String?
+  creadoEn      DateTime  @default(now()) @map("creado_en")
+  actualizadoEn DateTime  @updatedAt @map("actualizado_en")
+
+  accounts      Account[]
+  sessions      Session[]
+  abonos        Abono[]        @relation("RegistradoPor")
+  auditorias    Auditoria[]
+  citas         Cita[]         @relation("CitaOdontologo")
+
+  @@map("usuarios")
+}
+
+model Account {
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user Usuario @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         Usuario  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Paciente {
+  id                    String    @id @default(cuid())
+  nombre                String
+  apellido              String
+  fechaNacimiento       DateTime? @map("fecha_nacimiento")
+  sexo                  String?
+  telefono              String?
+  whatsapp              String?
+  correo                String?
+  direccion             String?
+  contactoEmergencia    String?   @map("contacto_emergencia")
+  telefonoEmergencia    String?   @map("telefono_emergencia")
+  alergias              String?
+  medicamentos          String?
+  antecedentesMedicos   String?   @map("antecedentes_medicos")
+  antecedentesOdonto    String?   @map("antecedentes_odonto")
+  foto                  String?
+  estado                String    @default("Nuevo")
+  notas                 String?
+  creadoEn              DateTime  @default(now()) @map("creado_en")
+  actualizadoEn         DateTime  @updatedAt @map("actualizado_en")
+
+  citas                 Cita[]
+  tratamientosPaciente  PacienteTratamiento[]
+  odontograma           Odontograma?
+  abonos                Abono[]
+  documentos            Documento[]
+
+  @@map("pacientes")
+}
+
+model Tratamiento {
+  id                String    @id @default(cuid())
+  nombre            String
+  categoria         String?
+  descripcion       String?
+  precio            Float     @default(0)
+  duracionMinutos   Int?      @map("duracion_minutos")
+  indicaciones      String?
+  contraindicaciones String?
+  cuidados          String?
+  activo            Boolean   @default(true)
+  creadoEn          DateTime  @default(now()) @map("creado_en")
+
+  pacientes         PacienteTratamiento[]
+
+  @@map("tratamientos")
+}
+
+model PacienteTratamiento {
+  id              String    @id @default(cuid())
+  pacienteId      String    @map("paciente_id")
+  tratamientoId   String    @map("tratamiento_id")
+  piezaDental     String?   @map("pieza_dental")
+  superficie      String?
+  costoTotal      Float     @map("costo_total")
+  estado          String    @default("Pendiente")
+  notas           String?
+  creadoEn        DateTime  @default(now()) @map("creado_en")
+  actualizadoEn   DateTime  @updatedAt @map("actualizado_en")
+
+  paciente        Paciente      @relation(fields: [pacienteId], references: [id], onDelete: Cascade)
+  tratamiento     Tratamiento   @relation(fields: [tratamientoId], references: [id])
+  abonos          Abono[]
+  planPago        PlanPago?
+
+  @@map("pacientes_tratamientos")
+}
+
+model Odontograma {
+  id          String   @id @default(cuid())
+  pacienteId  String   @unique @map("paciente_id")
+  datos       Json     @default("{}")
+  creadoEn    DateTime @default(now()) @map("creado_en")
+  actualizadoEn DateTime @updatedAt @map("actualizado_en")
+
+  paciente    Paciente @relation(fields: [pacienteId], references: [id], onDelete: Cascade)
+  piezas      PiezaDental[]
+
+  @@map("odontogramas")
+}
+
+model PiezaDental {
+  id              String   @id @default(cuid())
+  odontogramaId   String   @map("odontograma_id")
+  numeroPieza     Int      @map("numero_pieza")
+  estado          String   @default("Sano")
+  diagnostico     String?
+  tratamiento     String?
+  superficies     Json?    @default("{}")
+  observaciones   String?
+  implanteMarca   String?  @map("implante_marca")
+  implanteModelo  String?  @map("implante_modelo")
+  implanteDiametro String? @map("implante_diametro")
+  implanteLongitud String? @map("implante_longitud")
+  implanteFechaColocacion DateTime? @map("implante_fecha_colocacion")
+  implanteFechaCarga      DateTime? @map("implante_fecha_carga")
+  creadoEn        DateTime @default(now()) @map("creado_en")
+  actualizadoEn   DateTime @updatedAt @map("actualizado_en")
+
+  odontograma     Odontograma @relation(fields: [odontogramaId], references: [id], onDelete: Cascade)
+  historial       HistorialPieza[]
+
+  @@unique([odontogramaId, numeroPieza])
+  @@map("piezas_dentales")
+}
+
+model HistorialPieza {
+  id            String   @id @default(cuid())
+  piezaDentalId String   @map("pieza_dental_id")
+  estadoAnterior String? @map("estado_anterior")
+  estadoNuevo   String   @map("estado_nuevo")
+  accion        String?
+  registradoPor String?  @map("registrado_por")
+  fecha         DateTime @default(now())
+
+  piezaDental   PiezaDental @relation(fields: [piezaDentalId], references: [id], onDelete: Cascade)
+
+  @@map("historial_piezas")
+}
+
+model Consultorio {
+  id        String  @id @default(cuid())
+  nombre    String
+  activo    Boolean @default(true)
+  citas     Cita[]
+
+  @@map("consultorios")
+}
+
+model Cita {
+  id              String    @id @default(cuid())
+  pacienteId      String    @map("paciente_id")
+  odontologoId    String?   @map("odontologo_id")
+  consultorioId   String?   @map("consultorio_id")
+  titulo          String?
+  fechaInicio     DateTime  @map("fecha_inicio")
+  fechaFin        DateTime  @map("fecha_fin")
+  estado          String    @default("Programada")
+  motivo          String?
+  notas           String?
+  creadoEn        DateTime  @default(now()) @map("creado_en")
+  actualizadoEn   DateTime  @updatedAt @map("actualizado_en")
+
+  paciente        Paciente      @relation(fields: [pacienteId], references: [id], onDelete: Cascade)
+  odontologo      Usuario?      @relation("CitaOdontologo", fields: [odontologoId], references: [id])
+  consultorio     Consultorio?  @relation(fields: [consultorioId], references: [id])
+
+  @@map("citas")
+}
+
+model Abono {
+  id                      String   @id @default(cuid())
+  pacienteId              String   @map("paciente_id")
+  pacienteTratamientoId   String?  @map("paciente_tratamiento_id")
+  planPagoId              String?  @map("plan_pago_id")
+  monto                   Float
+  metodoPago              String   @map("metodo_pago")
+  numeroRecibo            String?  @map("numero_recibo")
+  observaciones           String?
+  registradoPorId         String   @map("registrado_por_id")
+  fecha                   DateTime @default(now())
+  creadoEn                DateTime @default(now()) @map("creado_en")
+
+  paciente                Paciente            @relation(fields: [pacienteId], references: [id], onDelete: Cascade)
+  pacienteTratamiento     PacienteTratamiento? @relation(fields: [pacienteTratamientoId], references: [id])
+  planPago                PlanPago?           @relation(fields: [planPagoId], references: [id])
+  registradoPor           Usuario             @relation("RegistradoPor", fields: [registradoPorId], references: [id])
+
+  @@map("abonos")
+}
+
+model PlanPago {
+  id                      String   @id @default(cuid())
+  pacienteTratamientoId   String   @unique @map("paciente_tratamiento_id")
+  montoTotal              Float    @map("monto_total")
+  enganche                Float    @default(0)
+  numeroCuotas            Int      @map("numero_cuotas")
+  frecuencia              String   @default("Mensual")
+  montoCuota              Float    @map("monto_cuota")
+  fechaInicio             DateTime @map("fecha_inicio")
+  estado                  String   @default("Activo")
+  creadoEn                DateTime @default(now()) @map("creado_en")
+
+  pacienteTratamiento     PacienteTratamiento @relation(fields: [pacienteTratamientoId], references: [id], onDelete: Cascade)
+  cuotas                  Cuota[]
+  abonos                  Abono[]
+
+  @@map("planes_pago")
+}
+
+model Cuota {
+  id          String    @id @default(cuid())
+  planPagoId  String    @map("plan_pago_id")
+  numeroCuota Int       @map("numero_cuota")
+  monto       Float
+  fechaVence  DateTime  @map("fecha_vence")
+  estado      String    @default("Pendiente")
+  fechaPago   DateTime? @map("fecha_pago")
+
+  planPago    PlanPago  @relation(fields: [planPagoId], references: [id], onDelete: Cascade)
+
+  @@map("cuotas")
+}
+
+model Documento {
+  id          String   @id @default(cuid())
+  pacienteId  String   @map("paciente_id")
+  nombre      String
+  tipo        String?
+  url         String
+  creadoEn    DateTime @default(now()) @map("creado_en")
+
+  paciente    Paciente @relation(fields: [pacienteId], references: [id], onDelete: Cascade)
+
+  @@map("documentos")
+}
+
+model Notificacion {
+  id          String   @id @default(cuid())
+  tipo        String
+  titulo      String
+  mensaje     String
+  destinatario String?
+  leida       Boolean  @default(false)
+  fecha       DateTime @default(now())
+
+  @@map("notificaciones")
+}
+
+model Auditoria {
+  id          String   @id @default(cuid())
+  usuarioId   String?  @map("usuario_id")
+  accion      String
+  entidad     String
+  entidadId   String?  @map("entidad_id")
+  detalles    Json?
+  ip          String?
+  fecha       DateTime @default(now())
+
+  usuario     Usuario? @relation(fields: [usuarioId], references: [id])
+
+  @@map("auditoria")
+}
+
+model Configuracion {
+  id    String @id @default(cuid())
+  clave String @unique
+  valor String
+
+  @@map("configuracion")
+}
