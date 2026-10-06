@@ -1,0 +1,22 @@
+{
+  "name": "clinica-odontologica",
+  "version": "1.0.0",
+  "description": "Sistema integral de gestión para clínica odontológica.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KelZel006/Clinica-Odontologica.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/KelZel006/Clinica-Odontologica/issues"
+  },
+  "homepage": "https://github.com/KelZel006/Clinica-Odontologica#readme",
+  "private": true,
+  "devDependencies": {
+    "supabase": "^2.120.0"
+  }
+}

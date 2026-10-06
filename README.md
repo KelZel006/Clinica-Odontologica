@@ -3,11 +3,14 @@
 Sistema integral de gestión para clínica odontológica.
 
 ## Stack Tecnológico
-- Next.js (App Router)
-- PostgreSQL + Prisma ORM
-- NextAuth.js (autenticación con roles)
+- Next.js (App Router) + TypeScript
+- Supabase
+  - PostgreSQL (esquema en `supabase/migrations/`)
+  - Supabase Auth (inicio de sesión)
+  - Row Level Security (roles y permisos aplicados en la base de datos)
+  - Storage (radiografías, fotos y documentos)
 - Tailwind CSS + Shadcn/UI
-- TypeScript
+- n8n (agenda desde la web y WhatsApp)
 
 ## Módulos
 - Dashboard con estadísticas y gráficos
@@ -19,10 +22,70 @@ Sistema integral de gestión para clínica odontológica.
 - Roles y Permisos
 - Auditoría
 
+## Base de datos
+
+| Área | Tablas |
+|---|---|
+| Usuarios | `perfiles`, `roles`, `permisos`, `rol_permisos` |
+| Agenda | `doctores`, `horarios_atencion`, `bloqueos_agenda`, `citas`, `solicitudes_cita` |
+| Expediente | `pacientes`, `notas_clinicas`, `odontograma`, `archivos_paciente` |
+| Finanzas | `tratamientos`, `planes_tratamiento`, `plan_items`, `planes_pago`, `cuotas`, `abonos` |
+| Otros | `mensajes_whatsapp`, `casos_clinicos`, `auditoria` |
+
+Vistas: `v_agenda`, `v_odontograma_actual`, `v_saldo_planes`, `v_cuotas_estado`.
+Funciones: `horarios_disponibles(fecha, tratamiento)`, `generar_cuotas(plan_pago_id)`, `mis_permisos()`.
+
+La base de datos impide citas solapadas del mismo doctor y registra en `auditoria` cada cambio
+(quién, cuándo, valores antes y después). La auditoría no se puede modificar ni borrar desde la app.
+
+### Roles
+
+| Permiso | administrador | doctor | recepcion | contabilidad |
+|---|:-:|:-:|:-:|:-:|
+| Dashboard | ✓ | ✓ | ✓ | ✓ |
+| Pacientes (ver / editar) | ✓ | ✓ | ✓ | ver |
+| Expediente clínico, odontograma, radiografías | ✓ | ✓ | – | – |
+| Citas y solicitudes | ✓ | ✓ | ✓ | – |
+| Configurar agenda (horarios, bloqueos) | ✓ | – | – | – |
+| Catálogo de tratamientos | ✓ | – | – | – |
+| Finanzas (ver / registrar abonos) | ✓ | ver | ✓ | ✓ |
+| Usuarios y permisos | ✓ | – | – | – |
+| Auditoría | ✓ | – | – | ✓ |
+
+Los permisos de cada rol se cambian en la tabla `rol_permisos`, sin tocar código.
+Un usuario nuevo no tiene rol (no ve nada) hasta que un administrador se lo asigna.
+
 ## Configuración
 
-Copia `.env.example` a `.env.local` y configura las variables de entorno.
+1. `npm install`
+2. Copia `.env.example` a `.env` y completa los valores (Supabase → **Connect** y **Project Settings → API Keys**).
+   Para la app Next.js, copia también las variables `NEXT_PUBLIC_*` a `.env.local`.
 
-## Credenciales de Acceso (Admin)
-- Usuario: `admin@clinicachirinos.com`
-- Contraseña: `Admin2026!`
+### Comandos de base de datos
+
+```bash
+# Aplicar migraciones nuevas
+npx supabase db push --db-url "$SUPABASE_DB_URL"
+
+# Regenerar los tipos de TypeScript después de cambiar el esquema
+npx supabase gen types typescript --db-url "$SUPABASE_DB_URL" --schema public > src/types/database.types.ts
+
+# Revisar el esquema
+npx supabase db lint --db-url "$SUPABASE_DB_URL"
+```
+
+Para cambiar el esquema, crea una migración nueva (`npx supabase migration new nombre`);
+nunca edites una migración ya aplicada.
+
+### Crear el primer administrador
+
+1. Supabase → **Authentication → Users → Add user → Create new user**, con *Auto Confirm User* marcado.
+2. Supabase → **SQL Editor**:
+   ```sql
+   update perfiles
+   set rol_id = (select id from roles where nombre = 'administrador'),
+       nombre_completo = 'Nombre del administrador'
+   where correo = 'correo-del-admin@ejemplo.com';
+   ```
+
+Las credenciales nunca se guardan en el repositorio.
