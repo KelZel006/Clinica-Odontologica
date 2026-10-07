@@ -32,6 +32,7 @@ export default async function EditarTratamientoPage({ params }: PageProps<"/trat
             orden: String(t.orden),
             activo: t.activo ? "on" : "",
             visible_web: t.visible_web ? "on" : "",
+            reservable_web: t.reservable_web ? "on" : "",
             indicaciones: t.indicaciones ?? "",
             contraindicaciones: t.contraindicaciones ?? "",
             cuidados_posteriores: t.cuidados_posteriores ?? "",

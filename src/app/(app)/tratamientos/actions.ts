@@ -42,6 +42,7 @@ export async function guardarTratamiento(_: EstadoTratamiento, formData: FormDat
   const v = Object.fromEntries(CAMPOS.map((k) => [k, String(formData.get(k) ?? "").trim()])) as Record<(typeof CAMPOS)[number], string>;
   const visibleWeb = formData.get("visible_web") === "on";
   const activo = formData.get("activo") === "on";
+  const reservableWeb = formData.get("reservable_web") === "on";
 
   const errores: EstadoTratamiento["errores"] = {};
   if (!v.nombre) errores.nombre = "Escribe el nombre del tratamiento.";
@@ -51,7 +52,7 @@ export async function guardarTratamiento(_: EstadoTratamiento, formData: FormDat
   if (!Number.isInteger(duracion) || duracion < 5 || duracion > 600) errores.duracion = "Entre 5 y 600 minutos.";
   const orden = v.orden ? Number(v.orden) : 0;
   if (!Number.isInteger(orden)) errores.orden = "Debe ser un número entero.";
-  if (Object.keys(errores).length) return { errores, valores: { ...v, visible_web: visibleWeb ? "on" : "", activo: activo ? "on" : "" } };
+  if (Object.keys(errores).length) return { errores, valores: { ...v, visible_web: visibleWeb ? "on" : "", activo: activo ? "on" : "", reservable_web: reservableWeb ? "on" : "" } };
 
   const fila = {
     nombre: v.nombre,
@@ -61,6 +62,7 @@ export async function guardarTratamiento(_: EstadoTratamiento, formData: FormDat
     duracion_minutos: duracion,
     orden,
     visible_web: visibleWeb,
+    reservable_web: reservableWeb,
     activo,
     indicaciones: v.indicaciones || null,
     contraindicaciones: v.contraindicaciones || null,

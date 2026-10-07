@@ -34,6 +34,11 @@ Sistema integral de gestión para clínica odontológica.
 
 Vistas: `v_agenda`, `v_odontograma_actual`, `v_saldo_planes`, `v_cuotas_estado`, `v_estado_cuenta`.
 
+Reserva en línea: la landing pública (`clinica-chirinos`) llama a `web_servicios()`, `web_horarios(fecha, servicio)` y
+`web_reservar_cita(...)` con la clave publicable. La cita entra en la agenda como «por confirmar» (origen `web`) y queda
+registrada como solicitud agendada. Solo se reservan los servicios marcados «Se puede reservar desde la web» en el
+catálogo; límite de una cita web por confirmar por teléfono, solo horas libres y hasta 60 días adelante.
+
 Finanzas: costo del tratamiento − total abonado = POR PAGAR, calculado en la base de datos. Los abonos no se editan
 ni se borran: se anulan con motivo. Métodos de pago: efectivo, transferencia, tarjeta y depósito bancario.
 Funciones: `horarios_disponibles(fecha, tratamiento)`, `generar_cuotas(plan_pago_id)`, `mis_permisos()`, `nombres_personal(ids)`.

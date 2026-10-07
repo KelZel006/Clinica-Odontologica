@@ -101,6 +101,12 @@ function Contenido({
               {mostrarTelefono(cita.paciente.telefono)}
             </a>
           </dd>
+          {cita.origen === "web" && (
+            <>
+              <dt className="text-grafito-suave">Origen</dt>
+              <dd className="font-medium text-rojo">Reservada por el paciente desde la web</dd>
+            </>
+          )}
           <dt className="text-grafito-suave">Expediente</dt>
           <dd className="cifras">N.º {cita.paciente.expediente}</dd>
           {cita.motivo && (

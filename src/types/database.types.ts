@@ -765,14 +765,14 @@ isOneToOne: false
                   ]
                 },"tratamientos": {
                   Row: {
-                    "activo": boolean,"categoria": string | null,"contraindicaciones": string | null,"created_at": string,"cuidados_posteriores": string | null,"descripcion": string | null,"duracion_minutos": number,"id": string,"indicaciones": string | null,"nombre": string,"orden": number,"precio_referencia": number | null,"slug": string,"updated_at": string,"visible_web": boolean
+                    "activo": boolean,"categoria": string | null,"contraindicaciones": string | null,"created_at": string,"cuidados_posteriores": string | null,"descripcion": string | null,"duracion_minutos": number,"id": string,"indicaciones": string | null,"nombre": string,"orden": number,"precio_referencia": number | null,"reservable_web": boolean,"slug": string,"updated_at": string,"visible_web": boolean
                   }
                   ComputedFields: never
                   Insert: {
-                    "activo"?: boolean,"categoria"?: string | null,"contraindicaciones"?: string | null,"created_at"?: string,"cuidados_posteriores"?: string | null,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"indicaciones"?: string | null,"nombre": string,"orden"?: number,"precio_referencia"?: number | null,"slug": string,"updated_at"?: string,"visible_web"?: boolean
+                    "activo"?: boolean,"categoria"?: string | null,"contraindicaciones"?: string | null,"created_at"?: string,"cuidados_posteriores"?: string | null,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"indicaciones"?: string | null,"nombre": string,"orden"?: number,"precio_referencia"?: number | null,"reservable_web"?: boolean,"slug": string,"updated_at"?: string,"visible_web"?: boolean
                   }
                   Update: {
-                    "activo"?: boolean,"categoria"?: string | null,"contraindicaciones"?: string | null,"created_at"?: string,"cuidados_posteriores"?: string | null,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"indicaciones"?: string | null,"nombre"?: string,"orden"?: number,"precio_referencia"?: number | null,"slug"?: string,"updated_at"?: string,"visible_web"?: boolean
+                    "activo"?: boolean,"categoria"?: string | null,"contraindicaciones"?: string | null,"created_at"?: string,"cuidados_posteriores"?: string | null,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"indicaciones"?: string | null,"nombre"?: string,"orden"?: number,"precio_referencia"?: number | null,"reservable_web"?: boolean,"slug"?: string,"updated_at"?: string,"visible_web"?: boolean
                   }
                   Relationships: [
                     
@@ -925,6 +925,19 @@ isOneToOne: false
                            },
 "tiene_permiso":
 { Args: { "p_permiso": string }; Returns: boolean
+                           },
+"web_horarios":
+{ Args: { "p_fecha": string,"p_servicio": string }; Returns: {
+              "hora_local": string,"inicio": string
+            }[]
+                           },
+"web_reservar_cita":
+{ Args: { "p_correo"?: string,"p_inicio": string,"p_motivo"?: string,"p_nombre": string,"p_servicio": string,"p_telefono": string }; Returns: Json
+                           },
+"web_servicios":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "descripcion": string,"duracion_minutos": number,"nombre": string,"slug": string
+            }[]
                            }
           }
           Enums: {

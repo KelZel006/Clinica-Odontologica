@@ -36,12 +36,13 @@ export function FormularioTratamiento({ inicial }: { inicial?: DatosTratamiento 
         <Campo id="orden" etiqueta="Orden en listas" error={e.orden} opcional>
           <Input id="orden" name="orden" inputMode="numeric" className="cifras" defaultValue={v("orden", "0")} />
         </Campo>
-        <Campo id="descripcion" etiqueta="Descripción" opcional className="sm:col-span-2" ayuda="Si está visible en la web, este texto lo ve el paciente.">
+        <Campo id="descripcion" etiqueta="Descripción" opcional className="sm:col-span-2" ayuda="Si está visible o reservable en la web, este texto lo ve el paciente.">
           <Textarea id="descripcion" name="descripcion" rows={2} defaultValue={v("descripcion")} />
         </Campo>
         <div className="flex flex-wrap gap-6 sm:col-span-2">
           <Casilla nombre="activo" etiqueta="Activo (se puede agendar y cobrar)" marcado={v("activo", "on") === "on"} />
           <Casilla nombre="visible_web" etiqueta="Visible en la web pública" marcado={v("visible_web", "on") === "on"} />
+          <Casilla nombre="reservable_web" etiqueta="Se puede reservar desde la web" marcado={v("reservable_web") === "on"} />
         </div>
       </Seccion>
 

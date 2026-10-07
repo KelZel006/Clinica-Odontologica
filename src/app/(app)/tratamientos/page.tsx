@@ -15,7 +15,7 @@ export default async function TratamientosPage() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("tratamientos")
-    .select("id, nombre, categoria, precio_referencia, duracion_minutos, visible_web, activo")
+    .select("id, nombre, categoria, precio_referencia, duracion_minutos, visible_web, reservable_web, activo")
     .order("activo", { ascending: false })
     .order("orden")
     .order("nombre");
@@ -72,7 +72,7 @@ export default async function TratamientosPage() {
                       {t.precio_referencia !== null ? lempiras(t.precio_referencia) : <span className="text-grafito-suave">Sin precio</span>}
                     </td>
                     <td className="cifras hidden px-4 py-3 text-right sm:table-cell">{t.duracion_minutos} min</td>
-                    <td className="hidden px-4 py-3 lg:table-cell">{t.visible_web ? "Visible" : "Oculto"}</td>
+                    <td className="hidden px-4 py-3 lg:table-cell">{t.reservable_web ? "Se reserva en línea" : t.visible_web ? "Visible" : "Oculto"}</td>
                   </tr>
                 ))}
               </tbody>
