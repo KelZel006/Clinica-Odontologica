@@ -28,12 +28,16 @@ Sistema integral de gestión para clínica odontológica.
 |---|---|
 | Usuarios | `perfiles`, `roles`, `permisos`, `rol_permisos` |
 | Agenda | `doctores`, `horarios_atencion`, `bloqueos_agenda`, `citas`, `solicitudes_cita` |
-| Expediente | `pacientes`, `notas_clinicas`, `odontograma`, `archivos_paciente` |
+| Expediente | `pacientes`, `notas_clinicas`, `odontograma`, `implantes`, `archivos_paciente` |
 | Finanzas | `tratamientos`, `planes_tratamiento`, `plan_items`, `planes_pago`, `cuotas`, `abonos` |
 | Otros | `mensajes_whatsapp`, `casos_clinicos`, `auditoria` |
 
 Vistas: `v_agenda`, `v_odontograma_actual`, `v_saldo_planes`, `v_cuotas_estado`.
-Funciones: `horarios_disponibles(fecha, tratamiento)`, `generar_cuotas(plan_pago_id)`, `mis_permisos()`.
+Funciones: `horarios_disponibles(fecha, tratamiento)`, `generar_cuotas(plan_pago_id)`, `mis_permisos()`, `nombres_personal(ids)`.
+
+El odontograma guarda cada hallazgo como una fila (pieza FDI, superficie, condición, estado, diagnóstico,
+tratamiento). Nada se edita ni se borra: una corrección anula el hallazgo con su motivo y el historial lo conserva.
+`v_odontograma_actual` da el estado vigente por pieza y superficie para consultas externas (n8n, IA).
 
 La base de datos impide citas solapadas del mismo doctor y registra en `auditoria` cada cambio
 (quién, cuándo, valores antes y después). La auditoría no se puede modificar ni borrar desde la app.
@@ -76,6 +80,9 @@ npm run typecheck
 | `/login` | Inicio de sesión con correo y contraseña (Supabase Auth) | — |
 | `/agenda` | Jornada del día, solicitudes de la web, nueva cita, confirmar / atender / cancelar | `citas.ver` / `citas.editar` |
 | `/pacientes` | Búsqueda, ficha, alta y edición de pacientes | `pacientes.ver` / `pacientes.editar` |
+| `/pacientes/[id]/odontograma` | Odontograma FDI interactivo: superficies, implantes, historial y anulación | `expediente.ver` / `expediente.editar` |
+| `/pacientes/[id]/notas` | Notas clínicas por consulta (también desde el detalle de la cita) | `expediente.ver` / `expediente.editar` |
+| `/pacientes/[id]/archivos` | Radiografías, fotos y consentimientos en el bucket privado `expedientes` | `expediente.ver` / `expediente.editar` |
 | `/sin-acceso` | Aviso para cuentas que aún no tienen rol | — |
 
 La navegación se arma con `mis_permisos()`; lo que el rol no puede usar no aparece. Las Server Actions

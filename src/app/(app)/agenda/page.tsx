@@ -45,6 +45,7 @@ export default async function AgendaPage({ searchParams }: PageProps<"/agenda">)
       fecha={fecha}
       hoy={hoy}
       puedeEditar={puede(sesion, "citas.editar")}
+      puedeEscribirNota={puede(sesion, "expediente.editar")}
       errorCarga={error ? "No se pudo cargar parte de la agenda. Recarga la página." : null}
       doctores={(doctores.data ?? []).map((d): DoctorAgenda => ({ id: d.id, nombre: d.nombre }))}
       horarios={(horarios.data ?? []).map((h) => ({ doctorId: h.doctor_id, inicio: h.hora_inicio, fin: h.hora_fin }))}

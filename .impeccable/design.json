@@ -417,7 +417,8 @@
         "name": "The Line Under Rule",
         "body": "The red current-time line runs beneath the appointment blocks; blocks stay legible over it, and its time pill sits in the hour margin.",
         "section": "elevation"
-      }
+      },
+      "**The Odontogram Legend Exception.** Inside the odontogram, and only there, color names the clinical condition (caries #d93636, obturación #7d8a99, sellante #5fa8e8, fractura #8a5a36, corona #163d7a, endodoncia #ef7a1a, implante #1593bf, prótesis #7652c7, puente #5b3fa8); solid means existing or done, hatching or a dashed line means planned."
     ],
     "dos": [
       "**Do** map every appointment state through the ink table: pending red outline, confirmed blue tint, attended solid blue, off-grid graphite with strike-through.",
@@ -429,7 +430,7 @@
       "**Do** format in es-HN, Lempiras (`L` prefix, two decimals) and America/Tegucigalpa."
     ],
     "donts": [
-      "**Don't** introduce a third state color (green, amber, purple) or a color per treatment or doctor.",
+      "**Don't** introduce a third state color (green, amber, purple) or a color per treatment or doctor outside the odontogram; the clinical legend lives only in the odontogram and its chips.",
       "**Don't** use navy or tinta-azul as decoration; blue on a record always asserts that something is confirmed or done.",
       "**Don't** add a dark theme.",
       "**Don't** build KPI cards or tinted stat tiles; counts live in the header legend as text with ink dots.",

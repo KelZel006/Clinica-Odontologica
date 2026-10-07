@@ -317,6 +317,50 @@ isOneToOne: false
       referencedColumns: ["doctor_id"]
     }
                   ]
+                },"implantes": {
+                  Row: {
+                    "activo": boolean,"created_at": string,"diametro_mm": number | null,"fecha_carga": string | null,"fecha_colocacion": string | null,"hallazgo_id": string | null,"id": string,"longitud_mm": number | null,"marca": string | null,"modelo": string | null,"observaciones": string | null,"paciente_id": string,"pieza": number,"registrado_por": string | null,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "activo"?: boolean,"created_at"?: string,"diametro_mm"?: number | null,"fecha_carga"?: string | null,"fecha_colocacion"?: string | null,"hallazgo_id"?: string | null,"id"?: string,"longitud_mm"?: number | null,"marca"?: string | null,"modelo"?: string | null,"observaciones"?: string | null,"paciente_id": string,"pieza": number,"registrado_por"?: string | null,"updated_at"?: string
+                  }
+                  Update: {
+                    "activo"?: boolean,"created_at"?: string,"diametro_mm"?: number | null,"fecha_carga"?: string | null,"fecha_colocacion"?: string | null,"hallazgo_id"?: string | null,"id"?: string,"longitud_mm"?: number | null,"marca"?: string | null,"modelo"?: string | null,"observaciones"?: string | null,"paciente_id"?: string,"pieza"?: number,"registrado_por"?: string | null,"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "implantes_hallazgo_id_fkey"
+      columns: ["hallazgo_id"]
+isOneToOne: false
+      referencedRelation: "odontograma"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "implantes_hallazgo_id_fkey"
+      columns: ["hallazgo_id"]
+isOneToOne: false
+      referencedRelation: "v_odontograma_actual"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "implantes_paciente_id_fkey"
+      columns: ["paciente_id"]
+isOneToOne: false
+      referencedRelation: "pacientes"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "implantes_paciente_id_fkey"
+      columns: ["paciente_id"]
+isOneToOne: false
+      referencedRelation: "v_agenda"
+      referencedColumns: ["paciente_id"]
+    },{
+      foreignKeyName: "implantes_registrado_por_fkey"
+      columns: ["registrado_por"]
+isOneToOne: false
+      referencedRelation: "perfiles"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"mensajes_whatsapp": {
                   Row: {
                     "cita_id": string | null,"contenido": string | null,"created_at": string,"direccion": Database["public"]['Enums']["direccion_mensaje"],"estado_envio": string | null,"id": string,"paciente_id": string | null,"proveedor_id": string | null,"telefono": string,"tipo": string
@@ -413,17 +457,35 @@ isOneToOne: false
                   ]
                 },"odontograma": {
                   Row: {
-                    "cara": Database["public"]['Enums']["cara_dental"],"condicion": Database["public"]['Enums']["condicion_dental"],"created_at": string,"estado": Database["public"]['Enums']["estado_hallazgo"],"id": string,"nota_id": string | null,"observacion": string | null,"paciente_id": string,"pieza": number,"registrado_por": string | null
+                    "anulado": boolean,"anulado_at": string | null,"anulado_por": string | null,"cara": Database["public"]['Enums']["cara_dental"],"cita_id": string | null,"condicion": Database["public"]['Enums']["condicion_dental"],"created_at": string,"diagnostico": string | null,"estado": Database["public"]['Enums']["estado_hallazgo"],"id": string,"motivo_anulacion": string | null,"nota_id": string | null,"observacion": string | null,"paciente_id": string,"pieza": number,"registrado_por": string | null,"tratamiento_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "cara"?: Database["public"]['Enums']["cara_dental"],"condicion": Database["public"]['Enums']["condicion_dental"],"created_at"?: string,"estado"?: Database["public"]['Enums']["estado_hallazgo"],"id"?: string,"nota_id"?: string | null,"observacion"?: string | null,"paciente_id": string,"pieza": number,"registrado_por"?: string | null
+                    "anulado"?: boolean,"anulado_at"?: string | null,"anulado_por"?: string | null,"cara"?: Database["public"]['Enums']["cara_dental"],"cita_id"?: string | null,"condicion": Database["public"]['Enums']["condicion_dental"],"created_at"?: string,"diagnostico"?: string | null,"estado"?: Database["public"]['Enums']["estado_hallazgo"],"id"?: string,"motivo_anulacion"?: string | null,"nota_id"?: string | null,"observacion"?: string | null,"paciente_id": string,"pieza": number,"registrado_por"?: string | null,"tratamiento_id"?: string | null
                   }
                   Update: {
-                    "cara"?: Database["public"]['Enums']["cara_dental"],"condicion"?: Database["public"]['Enums']["condicion_dental"],"created_at"?: string,"estado"?: Database["public"]['Enums']["estado_hallazgo"],"id"?: string,"nota_id"?: string | null,"observacion"?: string | null,"paciente_id"?: string,"pieza"?: number,"registrado_por"?: string | null
+                    "anulado"?: boolean,"anulado_at"?: string | null,"anulado_por"?: string | null,"cara"?: Database["public"]['Enums']["cara_dental"],"cita_id"?: string | null,"condicion"?: Database["public"]['Enums']["condicion_dental"],"created_at"?: string,"diagnostico"?: string | null,"estado"?: Database["public"]['Enums']["estado_hallazgo"],"id"?: string,"motivo_anulacion"?: string | null,"nota_id"?: string | null,"observacion"?: string | null,"paciente_id"?: string,"pieza"?: number,"registrado_por"?: string | null,"tratamiento_id"?: string | null
                   }
                   Relationships: [
                     {
+      foreignKeyName: "odontograma_anulado_por_fkey"
+      columns: ["anulado_por"]
+isOneToOne: false
+      referencedRelation: "perfiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "odontograma_cita_id_fkey"
+      columns: ["cita_id"]
+isOneToOne: false
+      referencedRelation: "citas"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "odontograma_cita_id_fkey"
+      columns: ["cita_id"]
+isOneToOne: false
+      referencedRelation: "v_agenda"
+      referencedColumns: ["cita_id"]
+    },{
       foreignKeyName: "odontograma_nota_id_fkey"
       columns: ["nota_id"]
 isOneToOne: false
@@ -446,6 +508,12 @@ isOneToOne: false
       columns: ["registrado_por"]
 isOneToOne: false
       referencedRelation: "perfiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "odontograma_tratamiento_id_fkey"
+      columns: ["tratamiento_id"]
+isOneToOne: false
+      referencedRelation: "tratamientos"
       referencedColumns: ["id"]
     }
                   ]
@@ -754,7 +822,7 @@ isOneToOne: false
                   ]
                 },"v_odontograma_actual": {
                   Row: {
-                    "cara": Database["public"]['Enums']["cara_dental"] | null,"condicion": Database["public"]['Enums']["condicion_dental"] | null,"estado": Database["public"]['Enums']["estado_hallazgo"] | null,"observacion": string | null,"paciente_id": string | null,"pieza": number | null,"registrado_at": string | null
+                    "cara": Database["public"]['Enums']["cara_dental"] | null,"condicion": Database["public"]['Enums']["condicion_dental"] | null,"diagnostico": string | null,"estado": Database["public"]['Enums']["estado_hallazgo"] | null,"id": string | null,"observacion": string | null,"paciente_id": string | null,"pieza": number | null,"registrado_at": string | null,"tratamiento": string | null,"tratamiento_id": string | null
                   }
                   ComputedFields: never
                   Relationships: [
@@ -770,6 +838,12 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "v_agenda"
       referencedColumns: ["paciente_id"]
+    },{
+      foreignKeyName: "odontograma_tratamiento_id_fkey"
+      columns: ["tratamiento_id"]
+isOneToOne: false
+      referencedRelation: "tratamientos"
+      referencedColumns: ["id"]
     }
                   ]
                 },"v_saldo_planes": {
@@ -818,12 +892,17 @@ isOneToOne: false
 "mis_permisos":
 { Args: Record<PropertyKey, never>; Returns: string[]
                            },
+"nombres_personal":
+{ Args: { "p_ids": (string)[] }; Returns: {
+              "id": string,"nombre": string
+            }[]
+                           },
 "tiene_permiso":
 { Args: { "p_permiso": string }; Returns: boolean
                            }
           }
           Enums: {
-            "cara_dental": "oclusal"|"mesial"|"distal"|"vestibular"|"lingual"|"completa","condicion_dental": "sano"|"caries"|"obturado"|"ausente"|"extraccion_indicada"|"endodoncia"|"corona"|"implante"|"puente"|"protesis"|"fractura"|"sellante"|"otro","direccion_mensaje": "entrante"|"saliente","estado_cita": "pendiente"|"confirmada"|"completada"|"cancelada"|"no_asistio"|"reprogramada","estado_cuota": "pendiente"|"parcial"|"pagada"|"vencida"|"anulada","estado_hallazgo": "existente"|"planificado"|"realizado","estado_plan": "propuesto"|"aceptado"|"en_curso"|"finalizado"|"rechazado","estado_solicitud": "nueva"|"contactada"|"agendada"|"descartada","frecuencia_pago": "semanal"|"quincenal"|"mensual","metodo_pago": "efectivo"|"tarjeta"|"transferencia"|"otro"
+            "cara_dental": "oclusal"|"mesial"|"distal"|"vestibular"|"lingual"|"completa"|"palatina"|"incisal"|"cervical"|"radicular","condicion_dental": "sano"|"caries"|"obturado"|"ausente"|"extraccion_indicada"|"endodoncia"|"corona"|"implante"|"puente"|"protesis"|"fractura"|"sellante"|"otro","direccion_mensaje": "entrante"|"saliente","estado_cita": "pendiente"|"confirmada"|"completada"|"cancelada"|"no_asistio"|"reprogramada","estado_cuota": "pendiente"|"parcial"|"pagada"|"vencida"|"anulada","estado_hallazgo": "existente"|"planificado"|"realizado","estado_plan": "propuesto"|"aceptado"|"en_curso"|"finalizado"|"rechazado","estado_solicitud": "nueva"|"contactada"|"agendada"|"descartada","frecuencia_pago": "semanal"|"quincenal"|"mensual","metodo_pago": "efectivo"|"tarjeta"|"transferencia"|"otro"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -939,7 +1018,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "cara_dental": ["oclusal", "mesial", "distal", "vestibular", "lingual", "completa"],"condicion_dental": ["sano", "caries", "obturado", "ausente", "extraccion_indicada", "endodoncia", "corona", "implante", "puente", "protesis", "fractura", "sellante", "otro"],"direccion_mensaje": ["entrante", "saliente"],"estado_cita": ["pendiente", "confirmada", "completada", "cancelada", "no_asistio", "reprogramada"],"estado_cuota": ["pendiente", "parcial", "pagada", "vencida", "anulada"],"estado_hallazgo": ["existente", "planificado", "realizado"],"estado_plan": ["propuesto", "aceptado", "en_curso", "finalizado", "rechazado"],"estado_solicitud": ["nueva", "contactada", "agendada", "descartada"],"frecuencia_pago": ["semanal", "quincenal", "mensual"],"metodo_pago": ["efectivo", "tarjeta", "transferencia", "otro"]
+            "cara_dental": ["oclusal", "mesial", "distal", "vestibular", "lingual", "completa", "palatina", "incisal", "cervical", "radicular"],"condicion_dental": ["sano", "caries", "obturado", "ausente", "extraccion_indicada", "endodoncia", "corona", "implante", "puente", "protesis", "fractura", "sellante", "otro"],"direccion_mensaje": ["entrante", "saliente"],"estado_cita": ["pendiente", "confirmada", "completada", "cancelada", "no_asistio", "reprogramada"],"estado_cuota": ["pendiente", "parcial", "pagada", "vencida", "anulada"],"estado_hallazgo": ["existente", "planificado", "realizado"],"estado_plan": ["propuesto", "aceptado", "en_curso", "finalizado", "rechazado"],"estado_solicitud": ["nueva", "contactada", "agendada", "descartada"],"frecuencia_pago": ["semanal", "quincenal", "mensual"],"metodo_pago": ["efectivo", "tarjeta", "transferencia", "otro"]
           }
         }
 } as const

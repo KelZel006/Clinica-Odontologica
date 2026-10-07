@@ -108,7 +108,7 @@ function Seccion({ titulo, descripcion, children }: { titulo: string; descripcio
   return (
     <fieldset className="grid gap-x-6 gap-y-5 md:grid-cols-[13rem_1fr]">
       <div>
-        <legend className="text-[0.9375rem] font-semibold">{titulo}</legend>
+        <legend className="text-base font-semibold">{titulo}</legend>
         {descripcion && <p className="mt-1 text-[0.8125rem] leading-relaxed text-grafito-suave">{descripcion}</p>}
       </div>
       <div className="grid gap-4 sm:grid-cols-2">{children}</div>

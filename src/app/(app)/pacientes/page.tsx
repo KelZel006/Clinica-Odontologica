@@ -103,7 +103,7 @@ export default async function PacientesPage({ searchParams }: PageProps<"/pacien
                             {p.nombre_completo}
                           </Link>
                           {p.alergias && (
-                            <span className="ml-2 rounded-sm bg-rojo-fondo px-1.5 py-0.5 text-[0.6875rem] font-semibold text-rojo">
+                            <span className="ml-2 rounded-sm bg-rojo-fondo px-1.5 py-0.5 text-[0.75rem] font-semibold text-rojo">
                               Alergias
                             </span>
                           )}

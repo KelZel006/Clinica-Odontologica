@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MessageCircleIcon, PencilIcon, TriangleAlertIcon } from "lucide-react";
+import { TriangleAlertIcon } from "lucide-react";
 import { cn } from "cn";
-import { buttonVariants } from "@/components/ui/button";
-import { Encabezado } from "@/components/encabezado";
 import { createClient } from "@/lib/supabase/server";
 import { exigirPermiso, puede } from "@/lib/sesion";
-import { capitalizar, diaCorto, edad, fecha, hora, hoyISO } from "@/lib/fechas";
-import { enlaceWhatsApp, mostrarTelefono } from "@/lib/telefono";
-import { ESTADOS } from "../../agenda/tipos";
+import { capitalizar, diaCorto, fecha, hora, hoyISO } from "@/lib/fechas";
+import { mostrarTelefono } from "@/lib/telefono";
+import { ESTADOS } from "../../../agenda/tipos";
 
-export const metadata: Metadata = { title: "Paciente" };
+export const metadata: Metadata = { title: "Ficha del paciente" };
 
 const SEXO: Record<string, string> = { F: "Femenino", M: "Masculino", otro: "Otro" };
 
@@ -35,37 +33,10 @@ export default async function PacientePage({ params }: PageProps<"/pacientes/[id
   ]);
   if (!p) notFound();
 
-  const años = edad(p.fecha_nacimiento);
   const { proximas, historial } = separarCitas(citas.data ?? []);
 
   return (
-    <main className="flex-1">
-      <Encabezado
-        titulo={p.nombre_completo}
-        volver={{ href: "/pacientes", etiqueta: "Pacientes" }}
-        detalle={
-          <span className="cifras flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span>Expediente N.º {p.numero_expediente}</span>
-            {años !== null && <span>{años} años</span>}
-            <a
-              href={enlaceWhatsApp(p.telefono)}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-grafito underline decoration-linea-fuerte hover:decoration-grafito"
-            >
-              <MessageCircleIcon className="size-3.5" aria-hidden />
-              {mostrarTelefono(p.telefono)}
-            </a>
-          </span>
-        }
-      >
-        {puede(sesion, "pacientes.editar") && (
-          <Link href={`/pacientes/${p.id}/editar`} className={buttonVariants({ variant: "outline" })}>
-            <PencilIcon aria-hidden />
-            Editar datos
-          </Link>
-        )}
-      </Encabezado>
+    <>
 
       <div className="grid gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="grid content-start gap-6">
@@ -74,7 +45,7 @@ export default async function PacientePage({ params }: PageProps<"/pacientes/[id
               <TriangleAlertIcon className="mt-0.5 size-5 shrink-0" aria-hidden />
               <div>
                 <p className="text-sm font-semibold">Alergias</p>
-                <p className="mt-0.5 text-[0.9375rem] whitespace-pre-line">{p.alergias}</p>
+                <p className="mt-0.5 text-sm whitespace-pre-line">{p.alergias}</p>
               </div>
             </div>
           )}
@@ -126,7 +97,7 @@ export default async function PacientePage({ params }: PageProps<"/pacientes/[id
           </aside>
         )}
       </div>
-    </main>
+    </>
   );
 }
 

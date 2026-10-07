@@ -17,6 +17,15 @@ colors:
   tinta-roja: "#c62f2f"
   tinta-roja-fondo: "#fcecec"
   destructivo: "#a52222"
+  odonto-caries: "#d93636"
+  odonto-obturacion: "#7d8a99"
+  odonto-sellante: "#5fa8e8"
+  odonto-fractura: "#8a5a36"
+  odonto-corona: "#163d7a"
+  odonto-endodoncia: "#ef7a1a"
+  odonto-implante: "#1593bf"
+  odonto-protesis: "#7652c7"
+  odonto-puente: "#5b3fa8"
 typography:
   display:
     fontFamily: "Public Sans, system-ui, sans-serif"
@@ -176,12 +185,20 @@ A cool, nearly colorless paper-and-graphite base carrying one brand navy and two
 - **Grafito** (grafito): body text and headings.
 - **Grafito suave** (grafito-suave): secondary text, labels, hour margin, and every off-grid (cancelled, no-show, rescheduled) appointment.
 
+### Odontogram Legend
+Used only inside the odontogram and its condition chips (see The Odontogram Legend Exception).
+- **Caries** (odonto-caries), **Obturación** (odonto-obturacion), **Sellante** (odonto-sellante), **Fractura** (odonto-fractura): surface conditions.
+- **Corona** (odonto-corona), **Prótesis** (odonto-protesis), **Puente** (odonto-puente): whole-crown fills.
+- **Endodoncia** (odonto-endodoncia): the canal line inside each root. **Implante** (odonto-implante): the threaded screw and its chip.
+
 ### Named Rules
 **The Ink Rule.** Blue means existing, done or confirmed: confirmed is the blue tint with blue type, attended is solid blue. Red means pending: an unconfirmed appointment is a red outline on white. Cancelled, no-show and rescheduled appointments leave the grid and appear in graphite with a strike-through in the "Fuera de la agenda" list. No other color communicates state.
 
 **The Navy Is Not Ink Rule.** Navy is reserved for brand chrome and primary actions. It never marks an appointment, request or record state.
 
 **The Red Is Attention Rule.** Red outside the appointment grid still means "act on this": pending counts, new requests, errors, allergies. Never use it for decoration or emphasis that asks nothing of the user.
+
+**The Odontogram Legend Exception.** Inside the odontogram, and only there, color names the clinical condition, following the printed chart the doctor already reads: caries #d93636, obturación #7d8a99, sellante #5fa8e8, fractura #8a5a36, corona #163d7a, endodoncia #ef7a1a, implante #1593bf, prótesis #7652c7, puente #5b3fa8, pieza ausente as a graphite cross over a ghosted tooth, extracción indicada as a red cross, lesión / otro as a dashed red ring. The two-ink logic survives as fill style: solid means existing or done, 45-degree hatching or a dashed line means planned. The legend chips (`Muestra`) reuse these exact colors wherever a condition is named (resumen clínico, panel de pieza, historial).
 
 ## Typography
 
@@ -265,6 +282,11 @@ Quiet and solid; one navy action per region.
 ### Web Request Row
 Red dot and "Nueva" in red for new requests, hollow graphite dot and "Contactada" once handled; WhatsApp-linked phone in tabular figures; navy "Agendar", outline "Ya la contacté", and destructive "Descartar solicitud" tucked in the overflow menu with an undo toast.
 
+### Odontograma (signature)
+One SVG chart in FDI order, faithful to the printed chart: per arch, the outer lateral view (roots up), the occlusal view and the inner lateral view (roots down); upper arch reads bucal / oclusal / palatina, lower arch lingual / oclusal / bucal. Quadrant names sit at the arch corners, tooth numbers in bold tabular figures, a dashed midline per arch. Each tooth is a button and each surface (mesial, distal, vestibular, palatina or lingual, oclusal or incisal, cervical, radicular) is a hit area that preselects that surface in the panel. Enamel carries a faint vertical gradient and roots a warm cream gradient; molars show occlusal grooves. Implants replace the roots with a threaded screw and abutment in implant blue; endodontics draws an orange canal inside each root. The selected tooth gets a tinta-azul outline on azul-fondo. Permanent / temporal dentition switch above the chart; legend below it. From 1280px the tooth panel docks right (23rem); below, it opens as a right sheet; on phones the chart scrolls horizontally at a 44rem minimum so teeth stay tappable.
+
+Findings are never edited: the panel offers "Marcar realizado" (adds a new realizado finding) and "Anular" with a required reason; voided findings stay struck through in the tooth history.
+
 ### Appointment Sheet
 Right sheet on all sizes: patient, date and time in tabular figures, status label in its ink, a definition list, a WhatsApp confirmation checklist (blue check when done, red hollow ring when pending), then the action bar. Destructive actions sit below a dashed linea-fuerte rule and open an inline confirmation with an optional reason before anything is cancelled.
 
@@ -280,7 +302,7 @@ Right sheet on all sizes: patient, date and time in tabular figures, status labe
 - **Do** format in es-HN, Lempiras (`L` prefix, two decimals) and America/Tegucigalpa.
 
 ### Don't:
-- **Don't** introduce a third state color (green, amber, purple) or a color per treatment or doctor.
+- **Don't** introduce a third state color (green, amber, purple) or a color per treatment or doctor outside the odontogram; the clinical legend lives only in the odontogram and its chips.
 - **Don't** use navy or tinta-azul as decoration; blue on a record always asserts that something is confirmed or done.
 - **Don't** add a dark theme.
 - **Don't** build KPI cards or tinted stat tiles; counts live in the header legend as text with ink dots.

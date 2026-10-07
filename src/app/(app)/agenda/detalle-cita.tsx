@@ -2,10 +2,10 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { CheckIcon, MessageCircleIcon, UserRoundIcon } from "lucide-react";
+import { CheckIcon, MessageCircleIcon, NotebookPenIcon, UserRoundIcon } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "cn";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { capitalizar, diaLargo, fecha as fmtFecha, hora, hoyISO } from "@/lib/fechas";
@@ -16,22 +16,34 @@ import { ESTADOS, type CitaAgenda, type EstadoCita } from "./tipos";
 export function DetalleCita({
   cita,
   puedeEditar,
+  puedeEscribirNota,
   onCerrar,
 }: {
   cita: CitaAgenda | null;
   puedeEditar: boolean;
+  puedeEscribirNota: boolean;
   onCerrar: () => void;
 }) {
   return (
     <Sheet open={cita !== null} onOpenChange={(abierto) => !abierto && onCerrar()}>
       <SheetContent side="right" className="w-full gap-0 overflow-y-auto p-0 sm:max-w-md">
-        {cita && <Contenido key={cita.id + cita.estado} cita={cita} puedeEditar={puedeEditar} onCerrar={onCerrar} />}
+        {cita && <Contenido key={cita.id + cita.estado} cita={cita} puedeEditar={puedeEditar} puedeEscribirNota={puedeEscribirNota} onCerrar={onCerrar} />}
       </SheetContent>
     </Sheet>
   );
 }
 
-function Contenido({ cita, puedeEditar, onCerrar }: { cita: CitaAgenda; puedeEditar: boolean; onCerrar: () => void }) {
+function Contenido({
+  cita,
+  puedeEditar,
+  puedeEscribirNota,
+  onCerrar,
+}: {
+  cita: CitaAgenda;
+  puedeEditar: boolean;
+  puedeEscribirNota: boolean;
+  onCerrar: () => void;
+}) {
   const [pendiente, iniciar] = useTransition();
   const [cancelando, setCancelando] = useState(false);
   const [motivo, setMotivo] = useState("");
@@ -138,6 +150,17 @@ function Contenido({ cita, puedeEditar, onCerrar }: { cita: CitaAgenda; puedeEdi
           <UserRoundIcon className="size-4" aria-hidden />
           Ver ficha del paciente
         </Link>
+        {puedeEscribirNota && (
+          <div className="flex flex-wrap gap-2">
+            <Link href={`/pacientes/${cita.paciente.id}/notas/nueva?cita=${cita.id}`} className={buttonVariants({ variant: "outline", size: "sm" })}>
+              <NotebookPenIcon aria-hidden />
+              Escribir nota clínica
+            </Link>
+            <Link href={`/pacientes/${cita.paciente.id}/odontograma`} className={buttonVariants({ variant: "outline", size: "sm" })}>
+              Odontograma
+            </Link>
+          </div>
+        )}
       </div>
 
       {puedeEditar && (

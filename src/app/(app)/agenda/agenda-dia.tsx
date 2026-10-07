@@ -19,6 +19,7 @@ type Props = {
   fecha: string;
   hoy: string;
   puedeEditar: boolean;
+  puedeEscribirNota: boolean;
   errorCarga: string | null;
   doctores: DoctorAgenda[];
   horarios: HorarioDia[];
@@ -214,7 +215,7 @@ export function AgendaDia(props: Props) {
         </SheetContent>
       </Sheet>
 
-      <DetalleCita cita={cita} puedeEditar={puedeEditar} onCerrar={() => setCitaAbierta(null)} />
+      <DetalleCita cita={cita} puedeEditar={puedeEditar} puedeEscribirNota={props.puedeEscribirNota} onCerrar={() => setCitaAbierta(null)} />
 
       {puedeEditar && (
         <NuevaCita
