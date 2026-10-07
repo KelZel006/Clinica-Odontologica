@@ -32,7 +32,10 @@ Sistema integral de gestión para clínica odontológica.
 | Finanzas | `tratamientos`, `planes_tratamiento`, `plan_items`, `planes_pago`, `cuotas`, `abonos` |
 | Otros | `mensajes_whatsapp`, `casos_clinicos`, `auditoria` |
 
-Vistas: `v_agenda`, `v_odontograma_actual`, `v_saldo_planes`, `v_cuotas_estado`.
+Vistas: `v_agenda`, `v_odontograma_actual`, `v_saldo_planes`, `v_cuotas_estado`, `v_estado_cuenta`.
+
+Finanzas: costo del tratamiento − total abonado = POR PAGAR, calculado en la base de datos. Los abonos no se editan
+ni se borran: se anulan con motivo. Métodos de pago: efectivo, transferencia, tarjeta y depósito bancario.
 Funciones: `horarios_disponibles(fecha, tratamiento)`, `generar_cuotas(plan_pago_id)`, `mis_permisos()`, `nombres_personal(ids)`.
 
 El odontograma guarda cada hallazgo como una fila (pieza FDI, superficie, condición, estado, diagnóstico,
@@ -82,6 +85,10 @@ npm run typecheck
 | `/pacientes` | Búsqueda, ficha, alta y edición de pacientes | `pacientes.ver` / `pacientes.editar` |
 | `/pacientes/[id]/odontograma` | Odontograma FDI interactivo: superficies, implantes, historial y anulación | `expediente.ver` / `expediente.editar` |
 | `/pacientes/[id]/notas` | Notas clínicas por consulta (también desde el detalle de la cita) | `expediente.ver` / `expediente.editar` |
+| `/pacientes/[id]/finanzas` | Planes de tratamiento (los arma el doctor), plan de pago con cuotas, abonos, ABONADO y POR PAGAR | `expediente.editar` planea / `finanzas.editar` cobra |
+| `/finanzas` | Abonos del periodo, cuotas vencidas y próximas, pacientes con saldo POR PAGAR | `finanzas.ver` |
+| `/tratamientos` | Catálogo: precios en Lps, duración, información clínica, visible en la web | `tratamientos.editar` |
+| `/recibos/[id]` | Recibo de abono numerado, listo para imprimir o guardar en PDF | `finanzas.ver` |
 | `/pacientes/[id]/archivos` | Radiografías, fotos y consentimientos en el bucket privado `expedientes` | `expediente.ver` / `expediente.editar` |
 | `/sin-acceso` | Aviso para cuentas que aún no tienen rol | — |
 

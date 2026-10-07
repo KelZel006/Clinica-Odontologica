@@ -4,15 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "cn";
 
-export function Pestanas({ pacienteId }: { pacienteId: string }) {
+export function Pestanas({ pacienteId, clinico, finanzas }: { pacienteId: string; clinico: boolean; finanzas: boolean }) {
   const pathname = usePathname();
   const base = `/pacientes/${pacienteId}`;
   const items = [
-    { href: base, etiqueta: "Ficha" },
-    { href: `${base}/odontograma`, etiqueta: "Odontograma" },
-    { href: `${base}/notas`, etiqueta: "Notas clínicas" },
-    { href: `${base}/archivos`, etiqueta: "Archivos" },
-  ];
+    { href: base, etiqueta: "Ficha", ver: true },
+    { href: `${base}/odontograma`, etiqueta: "Odontograma", ver: clinico },
+    { href: `${base}/notas`, etiqueta: "Notas clínicas", ver: clinico },
+    { href: `${base}/finanzas`, etiqueta: "Tratamientos y pagos", ver: finanzas },
+    { href: `${base}/archivos`, etiqueta: "Archivos", ver: clinico },
+  ].filter((i) => i.ver);
 
   return (
     <nav aria-label="Secciones del paciente" className="overflow-x-auto border-b border-linea px-4 sm:px-6">

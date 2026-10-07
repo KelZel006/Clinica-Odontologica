@@ -3,15 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDaysIcon, LogOutIcon, UsersIcon, type LucideIcon } from "lucide-react";
+import { CalendarDaysIcon, ClipboardListIcon, LogOutIcon, UsersIcon, WalletIcon, type LucideIcon } from "lucide-react";
 import { cn } from "cn";
 import { cerrarSesion } from "@/app/login/actions";
 
-export type ItemNav = { href: string; etiqueta: string; icono: "agenda" | "pacientes"; aviso?: number };
+export type ItemNav = { href: string; etiqueta: string; icono: "agenda" | "pacientes" | "finanzas" | "tratamientos"; aviso?: number };
 
 const ICONOS: Record<ItemNav["icono"], LucideIcon> = {
   agenda: CalendarDaysIcon,
   pacientes: UsersIcon,
+  finanzas: WalletIcon,
+  tratamientos: ClipboardListIcon,
 };
 
 function activo(pathname: string, href: string) {

@@ -150,7 +150,7 @@ _Visión general_
 
 Toda la aplicación habla la convención de la ficha dental impresa: la tinta azul registra lo que existe, ya se hizo o está confirmado; la tinta roja registra lo que sigue pendiente. Todo lo demás es papel clínico, texto grafito y una cuadrícula fina, enmarcado por la barra azul marino de la clínica. El color nunca es decoración ni una paleta por categoría: es un vocabulario de dos tintas con significado fijo, para que recepción lea el estado del día de un vistazo.
 
-El sistema es sereno, denso y operativo. Las superficies son casi blancas y planas, la estructura sale de líneas de 1px y no de tarjetas ni sombras, y toda hora y todo monto usa cifras tabulares. Tiene un solo tema claro porque la clínica trabaja con luz de día y fluorescente, en el escritorio de recepción y en una tablet junto al sillón. El idioma es español (es-HN), el dinero se expresa en Lempiras (`L 1,250.00`) y toda hora se calcula en America/Tegucigalpa.
+El sistema es sereno, denso y operativo. Las superficies son casi blancas y planas, la estructura sale de líneas de 1px y no de tarjetas ni sombras, y toda hora y todo monto usa cifras tabulares. Tiene un solo tema claro porque la clínica trabaja con luz de día y fluorescente, en el escritorio de recepción y en una tablet junto al sillón. El idioma es español (es-HN), el dinero se expresa en Lempiras (`Lps 1,250.00`) y toda hora se calcula en America/Tegucigalpa.
 
 Referencias descartadas: el calendario con un color arbitrario por estado y el tablero de tarjetas KPI del software dental genérico.
 
@@ -298,6 +298,12 @@ Un solo gráfico SVG en orden FDI, fiel a la ficha impresa: por arcada, la vista
 
 Los hallazgos nunca se editan: el panel ofrece «Marcar realizado» (agrega un hallazgo nuevo como realizado) y «Anular» con motivo obligatorio; los hallazgos anulados quedan tachados en el historial de la pieza.
 
+### Estado de cuenta (finanzas)
+Una franja de tres columnas con líneas de 1px, no tarjetas: Costo total (grafito), ABONADO (tinta azul) y POR PAGAR (tinta roja mientras sea mayor que cero). Se repite por paciente y por cada plan de tratamiento; los montos los calcula la base de datos (`v_saldo_planes`, `v_estado_cuenta`), nunca el navegador. Cada plan muestra sus partidas en tabla, su plan de pago con cuotas (Abonada en azul; Por pagar, Abono parcial y Vencida en rojo) y su historial de abonos con enlace al recibo. Un abono no se edita: se anula con motivo y queda tachado.
+
+### Recibo
+Hoja imprimible fuera del marco de la aplicación: logo, número de recibo grande en marino, paciente, monto en letras, concepto, método y referencia, el monto abonado sobre fondo azul y el resumen Costo / Total abonado / POR PAGAR. Líneas de firma al pie. Al imprimir desaparecen el botón y el fondo papel.
+
 ### Detalle de la cita
 Hoja lateral derecha en todos los tamaños: paciente, fecha y hora en cifras tabulares, estado en su tinta, una lista de datos, la lista de confirmación por WhatsApp (marca azul cuando está hecho, anillo rojo hueco cuando está pendiente) y luego la barra de acciones. Las acciones destructivas van debajo de una línea discontinua y abren una confirmación en la misma hoja, con motivo opcional, antes de cancelar nada.
 
@@ -311,7 +317,8 @@ _Qué hacer y qué no_
 - **Sí** poner horas, conteos, teléfonos y montos en Lempiras con cifras tabulares, con espacios de no separación dentro de las horas.
 - **Sí** separar las acciones destructivas de la acción principal con una línea discontinua y una confirmación.
 - **Sí** mantener los controles a tamaño de tablet: mínimo 36px en botones, 40px en campos y 44px en las acciones táctiles principales.
-- **Sí** formatear en es-HN, Lempiras (prefijo `L`, dos decimales) y America/Tegucigalpa.
+- **Sí** formatear en es-HN, Lempiras (prefijo `Lps`, dos decimales) y America/Tegucigalpa.
+- **Sí** decir ABONADO y POR PAGAR en todo lo financiero; nunca «deuda» ni «pagado» como estado principal (una cuota cubierta se muestra como «Abonada»).
 
 ### No hacer:
 - **No** introducir un tercer color de estado (verde, ámbar, morado) ni un color por tratamiento o por doctor fuera del odontograma; la leyenda clínica vive solo en el odontograma y sus muestras.

@@ -19,6 +19,12 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
   if (puede(sesion, "pacientes.ver")) {
     items.push({ href: "/pacientes", etiqueta: "Pacientes", icono: "pacientes" });
   }
+  if (puede(sesion, "finanzas.ver")) {
+    items.push({ href: "/finanzas", etiqueta: "Finanzas", icono: "finanzas" });
+  }
+  if (puede(sesion, "tratamientos.editar")) {
+    items.push({ href: "/tratamientos", etiqueta: "Tratamientos", icono: "tratamientos" });
+  }
 
   return (
     <div className="flex min-h-dvh">

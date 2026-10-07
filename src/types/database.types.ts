@@ -7,17 +7,23 @@ export type Database = {
           Tables: {
             "abonos": {
                   Row: {
-                    "anulado": boolean,"cita_id": string | null,"created_at": string,"cuota_id": string | null,"id": string,"metodo": Database["public"]['Enums']["metodo_pago"],"monto": number,"motivo_anulacion": string | null,"notas": string | null,"paciente_id": string,"pagado_at": string,"plan_tratamiento_id": string | null,"recibido_por": string | null,"recibo_numero": number,"referencia": string | null
+                    "anulado": boolean,"anulado_at": string | null,"anulado_por": string | null,"cita_id": string | null,"concepto": string,"created_at": string,"cuota_id": string | null,"id": string,"metodo": Database["public"]['Enums']["metodo_pago"],"monto": number,"motivo_anulacion": string | null,"notas": string | null,"paciente_id": string,"pagado_at": string,"plan_tratamiento_id": string | null,"recibido_por": string | null,"recibo_numero": number,"referencia": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "anulado"?: boolean,"cita_id"?: string | null,"created_at"?: string,"cuota_id"?: string | null,"id"?: string,"metodo": Database["public"]['Enums']["metodo_pago"],"monto": number,"motivo_anulacion"?: string | null,"notas"?: string | null,"paciente_id": string,"pagado_at"?: string,"plan_tratamiento_id"?: string | null,"recibido_por"?: string | null,"recibo_numero"?: never,"referencia"?: string | null
+                    "anulado"?: boolean,"anulado_at"?: string | null,"anulado_por"?: string | null,"cita_id"?: string | null,"concepto"?: string,"created_at"?: string,"cuota_id"?: string | null,"id"?: string,"metodo": Database["public"]['Enums']["metodo_pago"],"monto": number,"motivo_anulacion"?: string | null,"notas"?: string | null,"paciente_id": string,"pagado_at"?: string,"plan_tratamiento_id"?: string | null,"recibido_por"?: string | null,"recibo_numero"?: never,"referencia"?: string | null
                   }
                   Update: {
-                    "anulado"?: boolean,"cita_id"?: string | null,"created_at"?: string,"cuota_id"?: string | null,"id"?: string,"metodo"?: Database["public"]['Enums']["metodo_pago"],"monto"?: number,"motivo_anulacion"?: string | null,"notas"?: string | null,"paciente_id"?: string,"pagado_at"?: string,"plan_tratamiento_id"?: string | null,"recibido_por"?: string | null,"recibo_numero"?: never,"referencia"?: string | null
+                    "anulado"?: boolean,"anulado_at"?: string | null,"anulado_por"?: string | null,"cita_id"?: string | null,"concepto"?: string,"created_at"?: string,"cuota_id"?: string | null,"id"?: string,"metodo"?: Database["public"]['Enums']["metodo_pago"],"monto"?: number,"motivo_anulacion"?: string | null,"notas"?: string | null,"paciente_id"?: string,"pagado_at"?: string,"plan_tratamiento_id"?: string | null,"recibido_por"?: string | null,"recibo_numero"?: never,"referencia"?: string | null
                   }
                   Relationships: [
                     {
+      foreignKeyName: "abonos_anulado_por_fkey"
+      columns: ["anulado_por"]
+isOneToOne: false
+      referencedRelation: "perfiles"
+      referencedColumns: ["id"]
+    },{
       foreignKeyName: "abonos_cita_id_fkey"
       columns: ["cita_id"]
 isOneToOne: false
@@ -759,14 +765,14 @@ isOneToOne: false
                   ]
                 },"tratamientos": {
                   Row: {
-                    "activo": boolean,"categoria": string | null,"created_at": string,"descripcion": string | null,"duracion_minutos": number,"id": string,"nombre": string,"orden": number,"precio_referencia": number | null,"slug": string,"updated_at": string,"visible_web": boolean
+                    "activo": boolean,"categoria": string | null,"contraindicaciones": string | null,"created_at": string,"cuidados_posteriores": string | null,"descripcion": string | null,"duracion_minutos": number,"id": string,"indicaciones": string | null,"nombre": string,"orden": number,"precio_referencia": number | null,"slug": string,"updated_at": string,"visible_web": boolean
                   }
                   ComputedFields: never
                   Insert: {
-                    "activo"?: boolean,"categoria"?: string | null,"created_at"?: string,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"nombre": string,"orden"?: number,"precio_referencia"?: number | null,"slug": string,"updated_at"?: string,"visible_web"?: boolean
+                    "activo"?: boolean,"categoria"?: string | null,"contraindicaciones"?: string | null,"created_at"?: string,"cuidados_posteriores"?: string | null,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"indicaciones"?: string | null,"nombre": string,"orden"?: number,"precio_referencia"?: number | null,"slug": string,"updated_at"?: string,"visible_web"?: boolean
                   }
                   Update: {
-                    "activo"?: boolean,"categoria"?: string | null,"created_at"?: string,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"nombre"?: string,"orden"?: number,"precio_referencia"?: number | null,"slug"?: string,"updated_at"?: string,"visible_web"?: boolean
+                    "activo"?: boolean,"categoria"?: string | null,"contraindicaciones"?: string | null,"created_at"?: string,"cuidados_posteriores"?: string | null,"descripcion"?: string | null,"duracion_minutos"?: number,"id"?: string,"indicaciones"?: string | null,"nombre"?: string,"orden"?: number,"precio_referencia"?: number | null,"slug"?: string,"updated_at"?: string,"visible_web"?: boolean
                   }
                   Relationships: [
                     
@@ -807,6 +813,26 @@ isOneToOne: false
       referencedRelation: "v_saldo_planes"
       referencedColumns: ["plan_id"]
     },{
+      foreignKeyName: "planes_tratamiento_paciente_id_fkey"
+      columns: ["paciente_id"]
+isOneToOne: false
+      referencedRelation: "pacientes"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "planes_tratamiento_paciente_id_fkey"
+      columns: ["paciente_id"]
+isOneToOne: false
+      referencedRelation: "v_agenda"
+      referencedColumns: ["paciente_id"]
+    }
+                  ]
+                },"v_estado_cuenta": {
+                  Row: {
+                    "costo_total": number | null,"paciente_id": string | null,"planes": number | null,"por_pagar": number | null,"total_abonado": number | null
+                  }
+                  ComputedFields: never
+                  Relationships: [
+                    {
       foreignKeyName: "planes_tratamiento_paciente_id_fkey"
       columns: ["paciente_id"]
 isOneToOne: false
@@ -902,7 +928,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "cara_dental": "oclusal"|"mesial"|"distal"|"vestibular"|"lingual"|"completa"|"palatina"|"incisal"|"cervical"|"radicular","condicion_dental": "sano"|"caries"|"obturado"|"ausente"|"extraccion_indicada"|"endodoncia"|"corona"|"implante"|"puente"|"protesis"|"fractura"|"sellante"|"otro","direccion_mensaje": "entrante"|"saliente","estado_cita": "pendiente"|"confirmada"|"completada"|"cancelada"|"no_asistio"|"reprogramada","estado_cuota": "pendiente"|"parcial"|"pagada"|"vencida"|"anulada","estado_hallazgo": "existente"|"planificado"|"realizado","estado_plan": "propuesto"|"aceptado"|"en_curso"|"finalizado"|"rechazado","estado_solicitud": "nueva"|"contactada"|"agendada"|"descartada","frecuencia_pago": "semanal"|"quincenal"|"mensual","metodo_pago": "efectivo"|"tarjeta"|"transferencia"|"otro"
+            "cara_dental": "oclusal"|"mesial"|"distal"|"vestibular"|"lingual"|"completa"|"palatina"|"incisal"|"cervical"|"radicular","condicion_dental": "sano"|"caries"|"obturado"|"ausente"|"extraccion_indicada"|"endodoncia"|"corona"|"implante"|"puente"|"protesis"|"fractura"|"sellante"|"otro","direccion_mensaje": "entrante"|"saliente","estado_cita": "pendiente"|"confirmada"|"completada"|"cancelada"|"no_asistio"|"reprogramada","estado_cuota": "pendiente"|"parcial"|"pagada"|"vencida"|"anulada","estado_hallazgo": "existente"|"planificado"|"realizado","estado_plan": "propuesto"|"aceptado"|"en_curso"|"finalizado"|"rechazado","estado_solicitud": "nueva"|"contactada"|"agendada"|"descartada","frecuencia_pago": "semanal"|"quincenal"|"mensual","metodo_pago": "efectivo"|"tarjeta"|"transferencia"|"otro"|"deposito"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -1018,7 +1044,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "cara_dental": ["oclusal", "mesial", "distal", "vestibular", "lingual", "completa", "palatina", "incisal", "cervical", "radicular"],"condicion_dental": ["sano", "caries", "obturado", "ausente", "extraccion_indicada", "endodoncia", "corona", "implante", "puente", "protesis", "fractura", "sellante", "otro"],"direccion_mensaje": ["entrante", "saliente"],"estado_cita": ["pendiente", "confirmada", "completada", "cancelada", "no_asistio", "reprogramada"],"estado_cuota": ["pendiente", "parcial", "pagada", "vencida", "anulada"],"estado_hallazgo": ["existente", "planificado", "realizado"],"estado_plan": ["propuesto", "aceptado", "en_curso", "finalizado", "rechazado"],"estado_solicitud": ["nueva", "contactada", "agendada", "descartada"],"frecuencia_pago": ["semanal", "quincenal", "mensual"],"metodo_pago": ["efectivo", "tarjeta", "transferencia", "otro"]
+            "cara_dental": ["oclusal", "mesial", "distal", "vestibular", "lingual", "completa", "palatina", "incisal", "cervical", "radicular"],"condicion_dental": ["sano", "caries", "obturado", "ausente", "extraccion_indicada", "endodoncia", "corona", "implante", "puente", "protesis", "fractura", "sellante", "otro"],"direccion_mensaje": ["entrante", "saliente"],"estado_cita": ["pendiente", "confirmada", "completada", "cancelada", "no_asistio", "reprogramada"],"estado_cuota": ["pendiente", "parcial", "pagada", "vencida", "anulada"],"estado_hallazgo": ["existente", "planificado", "realizado"],"estado_plan": ["propuesto", "aceptado", "en_curso", "finalizado", "rechazado"],"estado_solicitud": ["nueva", "contactada", "agendada", "descartada"],"frecuencia_pago": ["semanal", "quincenal", "mensual"],"metodo_pago": ["efectivo", "tarjeta", "transferencia", "otro", "deposito"]
           }
         }
 } as const

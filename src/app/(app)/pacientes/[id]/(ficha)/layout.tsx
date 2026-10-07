@@ -24,6 +24,7 @@ export default async function FichaLayout({ children, params }: LayoutProps<"/pa
 
   const años = edad(p.fecha_nacimiento);
   const clinico = puede(sesion, "expediente.ver");
+  const finanzas = puede(sesion, "finanzas.ver") || clinico;
 
   return (
     <main className="flex-1">
@@ -59,7 +60,7 @@ export default async function FichaLayout({ children, params }: LayoutProps<"/pa
           </Link>
         )}
       </Encabezado>
-      {clinico && <Pestanas pacienteId={p.id} />}
+      {(clinico || finanzas) && <Pestanas pacienteId={p.id} clinico={clinico} finanzas={finanzas} />}
       {children}
     </main>
   );
