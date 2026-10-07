@@ -1,0 +1,129 @@
+{
+  "title": "Elige el mundo visual del sistema",
+  "question": "Para el sistema interno salió la dirección «Señalética de clínica». Puedes quedarte con ella, tomar otra o pedir otra tirada.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Señalética de clínica",
+      "kicker": "LA TIRADA",
+      "lineage": "Señalización de hospitales y clínicas: zonas por color, pictogramas, números de sala grandes",
+      "thesis": "El sistema se recorre como un edificio bien señalizado: cada módulo es una zona con su color y la agenda dice siempre «aquí estás, sigue esto».",
+      "palette": ["#0b3157", "#f4f6f8", "#0f7c86", "#3d5a99", "#b23a48", "#f2c230"],
+      "materials": ["Paneles de señal azul marino", "Bandas de zona por color", "Horas en cifras grandes y tabulares"],
+      "viewport": "Barra lateral azul marino con las zonas (Agenda, Pacientes, Clínico, Finanzas). La jornada del día va hora por hora y la cita de cada bloque ocupa exactamente lo que dura. Una banda «Ahora · Siguiente» queda fija arriba y las solicitudes nuevas van en una columna a la derecha.",
+      "risk": "Si los colores de zona se usan como decoración, se vuelve un tablero de colores sin jerarquía.",
+      "raised": [
+        {"from": "Señalización amarilla de aeropuerto", "raise": "Un solo color (amarillo señal) queda reservado para «lo que toca ahora» y no se usa para nada más."},
+        {"from": "Página de lexicón", "raise": "El encabezado de la agenda nombra siempre el tramo visible (p. ej. «8:00 – 12:30»), como las palabras guía de un diccionario."},
+        {"from": "Partitura de danza", "raise": "La altura de cada cita es su duración exacta, sin redondeos visuales."},
+        {"from": "Consola oscura", "raise": "Las acciones destructivas (cancelar, anular) van aparte y nunca junto a la acción principal."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Tinta de odontograma",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "La ficha odontológica impresa y su convención de tintas: azul = trabajo existente, rojo = por hacer",
+      "thesis": "Toda la app habla el idioma del odontograma: el azul es lo hecho y el rojo lo pendiente, ya sea una pieza, una cita o una cuota.",
+      "palette": ["#fbfcfd", "#0b3157", "#1f4fa3", "#c62f2f", "#24303d"],
+      "materials": ["Papel clínico blanco", "Tinta azul y roja", "Cuadrícula fina de ficha"],
+      "viewport": "Barra superior azul marino. La agenda del día va en columnas finas tipo ficha: las citas confirmadas en azul y las pendientes de confirmar en rojo, con las solicitudes en rojo hasta que se agendan.",
+      "risk": "Es la dirección más obvia para una clínica dental: muy clara, pero menos distintiva."
+    },
+    {
+      "id": "challenger-aeropuerto",
+      "label": "Señalización amarilla de aeropuerto",
+      "verdict": "declined",
+      "lineage": "Bandas amarillas de aeropuerto, pictogramas blancos, números de puerta monumentales",
+      "thesis": "Cada pantalla muestra solo la siguiente decisión.",
+      "palette": ["#ffd200", "#111111", "#ffffff"],
+      "materials": ["Paneles amarillos", "Pictogramas blancos sobre negro"],
+      "viewport": "La siguiente cita en número monumental sobre banda amarilla.",
+      "case": "Pierde en ambos ejes: el amarillo dominante choca con el azul marino de la marca y el personal no se identifica con un aeropuerto.",
+      "risk": "Se siente ajeno a una clínica.",
+      "kept": "Un color reservado solo para «lo que toca ahora».",
+      "hero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding-hero.webp"
+    },
+    {
+      "id": "challenger-lexicon",
+      "label": "Página de lexicón",
+      "verdict": "declined",
+      "lineage": "Diccionario del siglo XIX con palabras guía y láminas a color",
+      "thesis": "El color vive solo dentro de láminas enmarcadas.",
+      "palette": ["#1a1a1a", "#f3ecdc", "#c8432b", "#2a4fa0"],
+      "materials": ["Papel crema", "Láminas cromolitográficas"],
+      "viewport": "Columnas de texto con palabras guía arriba.",
+      "case": "Pierde en ambos ejes: una herramienta de agenda no debe leerse como un libro.",
+      "risk": "Lenta para trabajar rápido.",
+      "kept": "Palabras guía que nombran el tramo visible.",
+      "hero": "https://impeccable.style/worlds/cards/rw-lexicon-shoulder-and-plate-hero.webp"
+    },
+    {
+      "id": "challenger-laban",
+      "label": "Partitura de danza",
+      "verdict": "declined",
+      "lineage": "Labanotation: la longitud del símbolo es la duración exacta",
+      "thesis": "El tiempo se dibuja como longitud exacta.",
+      "palette": ["#ffffff", "#111111", "#d9d9d9"],
+      "materials": ["Papel de partitura", "Bloques sombreados"],
+      "viewport": "Pentagrama vertical central.",
+      "case": "Pierde en ambos ejes: la notación es ajena al personal de la clínica.",
+      "risk": "Abstracta.",
+      "kept": "La altura de la cita es su duración exacta.",
+      "hero": "https://impeccable.style/worlds/cards/notation-diagram-systems-labanotation-hero.webp"
+    },
+    {
+      "id": "challenger-split-flap",
+      "label": "Tablero de salidas",
+      "verdict": "declined",
+      "lineage": "Tablero split-flap de estación de tren",
+      "thesis": "Las citas del día como salidas en un tablero.",
+      "palette": ["#111111", "#ffffff", "#f0a020", "#b03030"],
+      "materials": ["Paletas negras", "Marco de acero"],
+      "viewport": "Filas de citas con estado en ámbar o rojo.",
+      "case": "Pierde en ambos ejes: se vuelve disfraz de estación en una pantalla de trabajo.",
+      "risk": "Disfraz.",
+      "kept": "El estado cambia el estilo de la fila sin romper la cuadrícula.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp"
+    },
+    {
+      "id": "challenger-consola",
+      "label": "Consola oscura",
+      "verdict": "declined",
+      "lineage": "Consola de desarrollo en grafito",
+      "thesis": "Paneles con líneas finas y acciones peligrosas aisladas.",
+      "palette": ["#1b1e22", "#2a2f36", "#7cc4ff"],
+      "materials": ["Grafito", "Líneas de 1px"],
+      "viewport": "Paneles persistentes en fondo oscuro.",
+      "case": "Pierde en ambos ejes: la clínica trabaja con luz de día y el tema oscuro no encaja.",
+      "risk": "Fría.",
+      "kept": "Acciones destructivas separadas.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-dark-first-developer-console-hero.webp"
+    },
+    {
+      "id": "challenger-catalogo",
+      "label": "Catálogo de convención",
+      "verdict": "declined",
+      "lineage": "Catálogo doujin en papel periódico",
+      "thesis": "Miles de miniaturas en una cuadrícula numerada.",
+      "palette": ["#222222", "#e9e6df", "#e0457b"],
+      "materials": ["Papel periódico", "Tinta única"],
+      "viewport": "Cuadrícula densa de celdas.",
+      "case": "Pierde en ambos ejes: no tiene relación con la clínica.",
+      "risk": "Ruido.",
+      "kept": "Nada que no aporten las otras."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "label": "El estándar de la categoría",
+    "thesis": "Un software de gestión clínica típico, hecho con mucho oficio.",
+    "palette": ["#ffffff", "#0f172a", "#0b3157"],
+    "materials": ["Cuadrícula limpia", "Tarjetas blancas", "Barra lateral"],
+    "viewport": "Barra lateral, calendario del día y tarjetas de resumen.",
+    "risk": "Igual a cualquier otro sistema, a propósito."
+  },
+  "steer": true
+}

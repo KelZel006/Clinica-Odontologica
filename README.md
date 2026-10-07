@@ -60,6 +60,26 @@ Un usuario nuevo no tiene rol (no ve nada) hasta que un administrador se lo asig
 1. `npm install`
 2. Copia `.env.example` a `.env` y completa los valores (Supabase → **Connect** y **Project Settings → API Keys**).
    Para la app Next.js, copia también las variables `NEXT_PUBLIC_*` a `.env.local`.
+   Sin `NEXT_PUBLIC_SUPABASE_ANON_KEY` la app solo muestra el login con un aviso.
+
+### App
+
+```bash
+npm run dev        # http://localhost:3000
+npm run build      # compilación de producción
+npm run lint
+npm run typecheck
+```
+
+| Ruta | Qué hace | Permiso |
+|---|---|---|
+| `/login` | Inicio de sesión con correo y contraseña (Supabase Auth) | — |
+| `/agenda` | Jornada del día, solicitudes de la web, nueva cita, confirmar / atender / cancelar | `citas.ver` / `citas.editar` |
+| `/pacientes` | Búsqueda, ficha, alta y edición de pacientes | `pacientes.ver` / `pacientes.editar` |
+| `/sin-acceso` | Aviso para cuentas que aún no tienen rol | — |
+
+La navegación se arma con `mis_permisos()`; lo que el rol no puede usar no aparece. Las Server Actions
+vuelven a revisar el permiso y RLS es la barrera final. La dirección visual está en `DESIGN.md`.
 
 ### Comandos de base de datos
 

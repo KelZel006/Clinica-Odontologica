@@ -1,0 +1,141 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+  Tinta de odontograma.
+  Papel clínico, barra azul marino de la marca, y dos tintas con significado fijo:
+  azul = existente / hecho / confirmado, rojo = pendiente / por hacer.
+  Ningún otro color comunica estado.
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-public-sans);
+  --font-heading: var(--font-public-sans);
+
+  --color-papel: var(--papel);
+  --color-superficie: var(--superficie);
+  --color-grafito: var(--grafito);
+  --color-grafito-suave: var(--grafito-suave);
+  --color-linea: var(--linea);
+  --color-linea-fuerte: var(--linea-fuerte);
+  --color-marino: var(--marino);
+  --color-marino-claro: var(--marino-claro);
+  --color-marino-texto: var(--marino-texto);
+  --color-azul: var(--tinta-azul);
+  --color-azul-fondo: var(--tinta-azul-fondo);
+  --color-rojo: var(--tinta-roja);
+  --color-rojo-fondo: var(--tinta-roja-fondo);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --papel: #fbfcfd;
+  --superficie: #ffffff;
+  --grafito: #24303d;
+  --grafito-suave: #586777;
+  --linea: #e1e7ee;
+  --linea-fuerte: #c3cdd8;
+  --marino: #0b3157;
+  --marino-claro: #164577;
+  --marino-texto: #b9cbe0;
+  --tinta-azul: #1f4fa3;
+  --tinta-azul-fondo: #eaf0fa;
+  --tinta-roja: #c62f2f;
+  --tinta-roja-fondo: #fcecec;
+
+  --background: var(--papel);
+  --foreground: var(--grafito);
+  --card: var(--superficie);
+  --card-foreground: var(--grafito);
+  --popover: var(--superficie);
+  --popover-foreground: var(--grafito);
+  --primary: var(--marino);
+  --primary-foreground: #ffffff;
+  --secondary: #edf1f5;
+  --secondary-foreground: var(--grafito);
+  --muted: #eef2f6;
+  --muted-foreground: var(--grafito-suave);
+  --accent: #eef2f6;
+  --accent-foreground: var(--grafito);
+  --destructive: #a52222;
+  --border: var(--linea);
+  --input: var(--linea-fuerte);
+  --ring: var(--tinta-azul);
+  --radius: 0.375rem;
+
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    background: var(--tinta-azul-fondo);
+    color: var(--marino);
+  }
+  input,
+  textarea {
+    caret-color: var(--tinta-azul);
+  }
+  :focus-visible {
+    outline: 2px solid var(--tinta-azul);
+    outline-offset: 2px;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--linea-fuerte) transparent;
+  }
+}
+
+@utility cifras {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Cuadrícula fina de ficha: una línea por media hora, más marcada en la hora en punto. */
+@utility ficha-renglones {
+  background-image:
+    linear-gradient(to bottom, var(--linea-fuerte) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--linea) 1px, transparent 1px);
+  background-size:
+    100% calc(var(--px-hora) * 1px),
+    100% calc(var(--px-hora) * 0.5px);
+}

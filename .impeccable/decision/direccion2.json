@@ -1,0 +1,117 @@
+{
+ "title": "Elige el mundo visual (registro más familiar)",
+ "question": "Estas son las opciones más convencionales. Incluí también «Tinta de odontograma», porque la señalaste.",
+ "options": [
+  {
+   "id": "pick-odontograma",
+   "label": "Tinta de odontograma",
+   "kicker": "TU INDICACIÓN",
+   "lineage": "La ficha odontológica impresa: azul = trabajo existente, rojo = por hacer",
+   "thesis": "El azul es lo hecho y el rojo lo pendiente, en toda la app: piezas, citas y cuotas.",
+   "palette": [
+    "#fbfcfd",
+    "#0b3157",
+    "#1f4fa3",
+    "#c62f2f",
+    "#24303d"
+   ],
+   "materials": [
+    "Papel clínico blanco",
+    "Tinta azul y roja",
+    "Cuadrícula fina"
+   ],
+   "viewport": "Barra lateral azul marino. La agenda del día va en una cuadrícula fina: las confirmadas en azul, las pendientes de confirmar en rojo, con las solicitudes a la derecha.",
+   "risk": "Es lo que esperarías de una clínica dental: clara, pero poco sorprendente."
+  },
+  {
+   "id": "titanio",
+   "label": "Titanio y azul marino",
+   "lineage": "El logo: letra azul marino y tornillo de implante en titanio",
+   "thesis": "Precisión de implantología: azul marino de marca, grises acero y cifras exactas.",
+   "palette": [
+    "#0b3157",
+    "#f3f5f7",
+    "#8a96a3",
+    "#1c6dd0",
+    "#d14343"
+   ],
+   "materials": [
+    "Acero cepillado (solo en tonos)",
+    "Líneas finas de precisión",
+    "Cifras tabulares"
+   ],
+   "viewport": "Barra lateral azul marino con el logo. La agenda del día va en columnas limpias y la línea de la hora actual es una regla de acero. Los folios (expediente, recibo) van en cifras tabulares.",
+   "risk": "Puede quedarse en «azul y gris corporativo» si la regla de precisión no se respeta."
+  },
+  {
+   "id": "libreta",
+   "label": "Libreta de citas",
+   "lineage": "La agenda de papel del consultorio que el sistema reemplaza",
+   "thesis": "El día se lee como la página de la agenda de siempre, pero viva.",
+   "palette": [
+    "#fdfdfb",
+    "#0b3157",
+    "#d7dde4",
+    "#c0392b",
+    "#2f7d4f"
+   ],
+   "materials": [
+    "Página blanca",
+    "Renglones de hora",
+    "Cinta separadora roja en la hora actual"
+   ],
+   "viewport": "Barra superior azul marino. La agenda del día va renglón por renglón con las horas al margen, y una cinta roja marca la hora actual. Las solicitudes van como notas al lado.",
+   "risk": "Si se exagera el papel, se vuelve un disfraz de libreta."
+  },
+  {
+   "id": "talonario",
+   "label": "Talonario numerado",
+   "lineage": "Talonarios de recibos y fichas con folio de la clínica",
+   "thesis": "Todo tiene folio: cada cita, expediente y recibo lleva su número visible y nada se pierde.",
+   "palette": [
+    "#ffffff",
+    "#0b3157",
+    "#2b59c3",
+    "#e8edf5",
+    "#b3261e"
+   ],
+   "materials": [
+    "Papel blanco",
+    "Azul de copia",
+    "Folios en cifras grandes"
+   ],
+   "viewport": "Barra lateral azul marino. Las citas del día van en una lista con hora y folio grandes. El detalle de la cita se abre como una ficha con folio.",
+   "risk": "La lista con folios es menos visual que una cuadrícula de horas."
+  }
+ ],
+ "reroll": {
+  "registers": [
+   "safer",
+   "bolder"
+  ]
+ },
+ "buildPath": {
+  "value": "code",
+  "toggle": false
+ },
+ "canon": true,
+ "canonCard": {
+  "label": "El estándar (estilo Dentalink / Dentrix Ascend / Clinic Cloud)",
+  "thesis": "Software dental típico, con el oficio de los mejores del mercado.",
+  "palette": [
+   "#ffffff",
+   "#0f172a",
+   "#0b3157",
+   "#16a34a"
+  ],
+  "materials": [
+   "Tarjetas blancas",
+   "Calendario de día",
+   "Barra lateral"
+  ],
+  "viewport": "Barra lateral, calendario del día con citas de color por estado y tarjetas de resumen arriba.",
+  "risk": "Igual a la competencia, a propósito."
+ },
+ "steer": true,
+ "followup": false
+}
