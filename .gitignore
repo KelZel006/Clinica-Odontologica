@@ -2,6 +2,7 @@
 .env*.local
 node_modules/
 .next/
-/src/generated/
 
-/generated/prisma
+.claude/settings.local.json
+.impeccable/config.local.json
+.impeccable/hook.cache.json
