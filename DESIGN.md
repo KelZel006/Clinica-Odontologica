@@ -1,6 +1,6 @@
 ---
 name: Clínica Dr. Elías Chirinos
-description: Internal clinic system that speaks the printed odontogram's ink convention, blue for done and red for pending.
+description: Sistema interno de la clínica que habla la convención de tintas de la ficha dental impresa, azul para lo hecho y rojo para lo pendiente.
 colors:
   papel: "#fbfcfd"
   superficie: "#ffffff"
@@ -139,172 +139,184 @@ components:
     height: "20px"
 ---
 
-# Design System: Clínica Dr. Elías Chirinos
+# Sistema de diseño: Clínica Dr. Elías Chirinos
+
+> Los títulos de nivel 2 (`## Overview`, `## Colors`…) conservan su nombre en inglés porque el formato DESIGN.md los exige así para que las herramientas lo lean; todo lo demás está en español.
 
 ## Overview
+_Visión general_
 
-**Creative North Star: "Tinta de odontograma"**
+**Idea rectora: «Tinta de odontograma»**
 
-The whole app speaks the convention of the printed dental chart: blue ink records what exists, is done or is confirmed; red ink records what is still pending. Everything else is clinical paper, graphite text and a fine ruled grid, framed by the clinic's navy brand bar. Color is never decoration and never a per-category palette; it is a two-ink vocabulary with fixed meanings, so reception can read the state of the day at a glance.
+Toda la aplicación habla la convención de la ficha dental impresa: la tinta azul registra lo que existe, ya se hizo o está confirmado; la tinta roja registra lo que sigue pendiente. Todo lo demás es papel clínico, texto grafito y una cuadrícula fina, enmarcado por la barra azul marino de la clínica. El color nunca es decoración ni una paleta por categoría: es un vocabulario de dos tintas con significado fijo, para que recepción lea el estado del día de un vistazo.
 
-The system is calm, dense and operational. Surfaces are near-white and flat, structure comes from 1px rules rather than cards or shadows, and every time and amount is set in tabular figures. It runs in a single light theme because the clinic works under daylight and fluorescent light, at a reception desk and on a tablet at the dental chair. Language is Spanish (es-HN), money is Lempiras (`L 1,250.00`), and every time is computed in America/Tegucigalpa.
+El sistema es sereno, denso y operativo. Las superficies son casi blancas y planas, la estructura sale de líneas de 1px y no de tarjetas ni sombras, y toda hora y todo monto usa cifras tabulares. Tiene un solo tema claro porque la clínica trabaja con luz de día y fluorescente, en el escritorio de recepción y en una tablet junto al sillón. El idioma es español (es-HN), el dinero se expresa en Lempiras (`L 1,250.00`) y toda hora se calcula en America/Tegucigalpa.
 
-The rejected references are the arbitrary color-per-status calendar and the KPI-card dashboard of generic dental software.
+Referencias descartadas: el calendario con un color arbitrario por estado y el tablero de tarjetas KPI del software dental genérico.
 
-**Key Characteristics:**
-- Two state inks only: blue (done or confirmed) and red (pending).
-- Navy reserved for brand chrome and the primary action.
-- Clinical paper surfaces, 1px ruled structure, almost no shadow.
-- Tabular figures for every time, count, phone number and amount.
-- Light theme only; tablet-sized targets.
+**Rasgos principales:**
+- Solo dos tintas de estado: azul (hecho o confirmado) y rojo (pendiente).
+- El azul marino se reserva para el marco de marca y la acción principal.
+- Superficies de papel clínico, estructura con líneas de 1px, casi sin sombras.
+- Cifras tabulares para toda hora, conteo, teléfono y monto.
+- Solo tema claro; controles del tamaño adecuado para tablet.
 
 ## Colors
+_Colores_
 
-A cool, nearly colorless paper-and-graphite base carrying one brand navy and two meaningful inks.
+Una base fría, casi sin color, de papel y grafito, que lleva un azul marino de marca y dos tintas con significado.
 
-### Primary
-- **Marino de marca** (marino): the sidebar, the mobile top bar, the login brand panel, the browser theme color and the fill of primary buttons ("Nueva cita", "Agendar", "Marcar confirmada"). It is chrome and commitment, never state.
-- **Marino claro** (marino-claro): hover for navy buttons and for sidebar items.
-- **Texto sobre marino** (marino-texto): secondary text and inactive nav labels on navy.
+### Primario
+- **Marino de marca** (marino): la barra lateral, la barra superior en móvil, el panel de marca del login, el color de tema del navegador y el relleno de los botones principales («Nueva cita», «Agendar», «Marcar confirmada»). Es marco y compromiso, nunca estado.
+- **Marino claro** (marino-claro): estado al pasar el cursor en botones marinos y en los elementos de la barra lateral.
+- **Texto sobre marino** (marino-texto): texto secundario y etiquetas inactivas de navegación sobre marino.
 
-### Secondary
-- **Tinta azul** (tinta-azul): the "done / confirmed / exists" ink. Solid fill for attended appointments, time and status text on confirmed ones, the WhatsApp check mark, focus outlines and the text caret.
-- **Fondo azul** (tinta-azul-fondo): the tint behind confirmed appointments and a selected existing patient; also the text-selection highlight.
+### Secundario
+- **Tinta azul** (tinta-azul): la tinta de «hecho / confirmado / existe». Relleno sólido de las citas atendidas, hora y estado de las confirmadas, la marca de verificación de WhatsApp, los contornos de foco y el cursor de texto.
+- **Fondo azul** (tinta-azul-fondo): el tinte detrás de las citas confirmadas y de un paciente existente seleccionado; también el resaltado del texto seleccionado.
 
-### Tertiary
-- **Tinta roja** (tinta-roja): the "pending / needs attention" ink. Outline of unconfirmed appointments, the current-time line, pending counters (nav badge, "2 nuevas", "por confirmar"), new web requests, field errors, the allergy alert.
-- **Fondo rojo** (tinta-roja-fondo): background of error alerts and of the allergy note and badge.
-- **Rojo destructivo** (destructivo): a deeper red used only for destructive actions (outlined "Cancelar cita", "Descartar solicitud"), kept distinct from the pending ink.
+### Terciario
+- **Tinta roja** (tinta-roja): la tinta de «pendiente / requiere atención». Contorno de las citas sin confirmar, la línea de la hora actual, los contadores pendientes (insignia del menú, «2 nuevas», «por confirmar»), las solicitudes nuevas de la web, los errores de formulario y la alerta de alergias.
+- **Fondo rojo** (tinta-roja-fondo): fondo de las alertas de error y de la nota e insignia de alergias.
+- **Rojo destructivo** (destructivo): un rojo más profundo, usado solo en acciones destructivas («Cancelar cita», «Descartar solicitud» con contorno), distinto de la tinta de pendiente.
 
-### Neutral
-- **Papel clínico** (papel): app background and sticky headers.
-- **Superficie** (superficie): grid columns, side panels, sheets, inputs, tables.
-- **Bruma** (muted): hover rows, segmented-control track, blocked-time hatching.
-- **Línea** (linea): every hairline divider, half-hour rule and container border.
-- **Línea fuerte** (linea-fuerte): on-the-hour rule, input borders, the dashed destructive separator, link underlines.
-- **Grafito** (grafito): body text and headings.
-- **Grafito suave** (grafito-suave): secondary text, labels, hour margin, and every off-grid (cancelled, no-show, rescheduled) appointment.
+### Neutros
+- **Papel clínico** (papel): fondo de la aplicación y encabezados fijos.
+- **Superficie** (superficie): columnas de la cuadrícula, paneles laterales, hojas, campos y tablas.
+- **Bruma** (muted): filas al pasar el cursor, fondo de los controles segmentados y rayado del horario bloqueado.
+- **Línea** (linea): todo divisor fino, la línea de cada media hora y el borde de los contenedores.
+- **Línea fuerte** (linea-fuerte): la línea de cada hora en punto, bordes de campos, el separador discontinuo de acciones destructivas y el subrayado de enlaces.
+- **Grafito** (grafito): texto principal y títulos.
+- **Grafito suave** (grafito-suave): texto secundario, etiquetas, margen de horas y toda cita fuera de la agenda (cancelada, no asistió, reprogramada).
 
-### Odontogram Legend
-Used only inside the odontogram and its condition chips (see The Odontogram Legend Exception).
-- **Caries** (odonto-caries), **Obturación** (odonto-obturacion), **Sellante** (odonto-sellante), **Fractura** (odonto-fractura): surface conditions.
-- **Corona** (odonto-corona), **Prótesis** (odonto-protesis), **Puente** (odonto-puente): whole-crown fills.
-- **Endodoncia** (odonto-endodoncia): the canal line inside each root. **Implante** (odonto-implante): the threaded screw and its chip.
+### Leyenda del odontograma
+Se usa solo dentro del odontograma y en sus muestras de condición (ver «Excepción de la leyenda del odontograma»).
+- **Caries** (odonto-caries), **Obturación** (odonto-obturacion), **Sellante** (odonto-sellante), **Fractura** (odonto-fractura): condiciones de superficie.
+- **Corona** (odonto-corona), **Prótesis** (odonto-protesis), **Puente** (odonto-puente): rellenan toda la corona.
+- **Endodoncia** (odonto-endodoncia): la línea del conducto dentro de cada raíz. **Implante** (odonto-implante): el tornillo roscado y su muestra.
 
-### Named Rules
-**The Ink Rule.** Blue means existing, done or confirmed: confirmed is the blue tint with blue type, attended is solid blue. Red means pending: an unconfirmed appointment is a red outline on white. Cancelled, no-show and rescheduled appointments leave the grid and appear in graphite with a strike-through in the "Fuera de la agenda" list. No other color communicates state.
+### Reglas con nombre
+**Regla de las tintas.** Azul significa existente, hecho o confirmado: confirmada es el tinte azul con texto azul; atendida es azul sólido. Rojo significa pendiente: una cita sin confirmar es un contorno rojo sobre blanco. Las citas canceladas, no asistidas o reprogramadas salen de la cuadrícula y aparecen en grafito tachadas en la lista «Fuera de la agenda». Ningún otro color comunica estado.
 
-**The Navy Is Not Ink Rule.** Navy is reserved for brand chrome and primary actions. It never marks an appointment, request or record state.
+**Regla del marino no es tinta.** El azul marino se reserva para el marco de marca y las acciones principales. Nunca marca el estado de una cita, solicitud o registro.
 
-**The Red Is Attention Rule.** Red outside the appointment grid still means "act on this": pending counts, new requests, errors, allergies. Never use it for decoration or emphasis that asks nothing of the user.
+**Regla del rojo es atención.** Fuera de la agenda, el rojo sigue significando «actúa sobre esto»: conteos pendientes, solicitudes nuevas, errores, alergias. Nunca se usa como decoración ni como énfasis que no pida nada al usuario.
 
-**The Odontogram Legend Exception.** Inside the odontogram, and only there, color names the clinical condition, following the printed chart the doctor already reads: caries #d93636, obturación #7d8a99, sellante #5fa8e8, fractura #8a5a36, corona #163d7a, endodoncia #ef7a1a, implante #1593bf, prótesis #7652c7, puente #5b3fa8, pieza ausente as a graphite cross over a ghosted tooth, extracción indicada as a red cross, lesión / otro as a dashed red ring. The two-ink logic survives as fill style: solid means existing or done, 45-degree hatching or a dashed line means planned. The legend chips (`Muestra`) reuse these exact colors wherever a condition is named (resumen clínico, panel de pieza, historial).
+**Excepción de la leyenda del odontograma.** Dentro del odontograma, y solo ahí, el color nombra la condición clínica, siguiendo la ficha impresa que el doctor ya conoce: caries #d93636, obturación #7d8a99, sellante #5fa8e8, fractura #8a5a36, corona #163d7a, endodoncia #ef7a1a, implante #1593bf, prótesis #7652c7, puente #5b3fa8; pieza ausente como una cruz grafito sobre la pieza atenuada, extracción indicada como cruz roja y lesión / otro como un anillo rojo discontinuo. La lógica de las dos tintas se conserva en el tipo de relleno: sólido es existente o realizado; rayado a 45° o línea discontinua es planificado. Las muestras de la leyenda (`Muestra`) repiten exactamente estos colores dondequiera que se nombre una condición (resumen clínico, panel de la pieza, historial).
 
 ## Typography
+_Tipografía_
 
-**Display Font:** Public Sans (via next/font, with system-ui fallback)
-**Body Font:** Public Sans
-**Label/Mono Font:** Public Sans with tabular figures (`cifras`)
+**Fuente de títulos:** Public Sans (vía next/font, con system-ui como respaldo)
+**Fuente de texto:** Public Sans
+**Fuente de etiquetas y cifras:** Public Sans con cifras tabulares (`cifras`)
 
-**Character:** One sober, institutional sans in three weights (400, 500, 600), with stylistic sets cv11 and ss01 on. Hierarchy comes from size and weight steps, never from case or tracking.
+**Carácter:** una sola sans sobria e institucional en tres pesos (400, 500, 600), con los juegos estilísticos cv11 y ss01 activos. La jerarquía sale de los saltos de tamaño y peso, nunca de mayúsculas ni de espaciado entre letras.
 
-### Hierarchy
-- **Display** (600, 2.25rem, 1.25): only the login brand panel statement.
-- **Headline** (600, 1.25rem mobile / 1.5rem from 640px): page titles, including the agenda date ("Martes, 6 de octubre").
-- **Title** (600, 1rem to 1.125rem): side-panel and sheet titles, patient name in the appointment sheet.
-- **Body** (400, 0.875rem): tables, lists, definitions, form text. Inputs use 1rem on mobile to avoid zoom, 0.875rem from 768px.
-- **Label** (500 to 600, 0.8125rem): field labels, section headings inside sheets, table headers, the count legend, secondary meta.
-- **Cifras** (600, 0.75rem, tabular): times inside blocks, hour margin, counters. Badges drop to 0.6875rem.
+### Jerarquía
+- **Display** (600, 2.25rem, 1.25): solo la frase del panel de marca del login.
+- **Titular** (600, 1.25rem en móvil / 1.5rem desde 640px): títulos de página, incluida la fecha de la agenda («Martes, 6 de octubre»).
+- **Título** (600, 1rem a 1.125rem): títulos de paneles laterales y hojas, nombre del paciente en el detalle de la cita.
+- **Cuerpo** (400, 0.875rem): tablas, listas, definiciones y texto de formularios. Los campos usan 1rem en móvil para evitar el zoom y 0.875rem desde 768px.
+- **Etiqueta** (500 a 600, 0.8125rem): etiquetas de campos, títulos de sección dentro de hojas, encabezados de tablas, la leyenda de conteos y datos secundarios.
+- **Cifras** (600, 0.75rem, tabulares): horas dentro de los bloques, margen de horas y contadores. Las insignias bajan a 0.6875rem.
 
-### Named Rules
-**The Tabular Rule.** Every time, date, count, phone number, record number and Lempira amount carries tabular figures.
+### Reglas con nombre
+**Regla tabular.** Toda hora, fecha, conteo, teléfono, número de expediente y monto en Lempiras lleva cifras tabulares.
 
-**The Unbroken Time Rule.** Formatted times use non-breaking spaces, so "7:00 a. m." never wraps across lines.
+**Regla de la hora sin cortes.** Las horas formateadas usan espacios de no separación, para que «7:00 a. m.» nunca se parta entre líneas.
 
 ## Layout
+_Distribución_
 
-App shell: a fixed 240px navy sidebar from 768px; below it, a 56px navy top bar plus a 64px white bottom navigation with safe-area padding. Page gutters are 16px, widening to 24px from 640px; sheets and side panels pad 20px.
+Marco de la aplicación: una barra lateral marino fija de 240px desde 768px; por debajo, una barra superior marino de 56px y una navegación inferior blanca de 64px con margen para el área segura. Los márgenes de página son de 16px y crecen a 24px desde 640px; hojas y paneles laterales tienen 20px de relleno.
 
-The agenda is a single-day vertical grid. Each hour is 76px tall and block height equals the exact appointment duration. A 64px hour margin sits on the left; multiple doctors become equal columns 8px apart. Hours outside clinic opening and blocked time are hatched at 135 degrees. The web-requests column (352px) docks on the right from 1280px; below that it opens as a right sheet from the "Solicitudes" button with its red count.
+La agenda es una cuadrícula vertical de un solo día. Cada hora mide 76px y la altura de cada bloque es la duración exacta de la cita. A la izquierda hay un margen de horas de 64px; varios doctores se convierten en columnas iguales separadas por 8px. Las horas fuera del horario de atención y el tiempo bloqueado llevan un rayado a 135°. La columna de solicitudes de la web (352px) queda fija a la derecha desde 1280px; por debajo se abre como hoja lateral desde el botón «Solicitudes», con su contador rojo.
 
-The agenda header is sticky and carries the date, day navigation (previous / Hoy / next plus a date input), and a count legend: total, red "por confirmar", blue "confirmadas", blue "atendidas" (square marker for the solid state). The legend replaces the visible time range the original brief named, because the story is reading red versus blue at a glance.
+El encabezado de la agenda es fijo y lleva la fecha, la navegación por días (anterior / Hoy / siguiente y un selector de fecha) y una leyenda de conteos: total, «por confirmar» en rojo, «confirmadas» en azul y «atendidas» en azul (marca cuadrada para el estado sólido). La leyenda reemplaza el tramo horario visible que pedía el planteamiento original, porque lo que importa es leer rojo contra azul de un vistazo.
 
-Login splits 1fr / 1.1fr from 1024px: navy brand panel left, form right; single column below.
+El login se divide 1fr / 1.1fr desde 1024px: panel de marca marino a la izquierda y formulario a la derecha; una sola columna por debajo.
 
-### Named Rules
-**The Duration Rule.** Block height is duration at 76px per hour, nothing rounded up for looks; short blocks collapse to one line (under 44px) or two lines (under 84px) instead of growing.
+El odontograma ocupa el ancho disponible; desde 1280px el panel de la pieza queda fijo a la derecha (23rem) y por debajo se abre como hoja lateral.
+
+### Reglas con nombre
+**Regla de la duración.** La altura del bloque es la duración a 76px por hora, sin redondear para que se vea mejor; los bloques cortos se reducen a una línea (menos de 44px) o dos líneas (menos de 84px) en lugar de crecer.
 
 ## Elevation & Depth
+_Elevación y profundidad_
 
-Flat by default. Depth comes from the paper / white-surface step and 1px rules. The few shadows are small, navy-tinted and functional.
+Plano por defecto. La profundidad sale del escalón entre el papel y la superficie blanca y de las líneas de 1px. Las pocas sombras son pequeñas, teñidas de marino y funcionales.
 
-### Shadow Vocabulary
-- **Botón primario** (`box-shadow: 0 1px 2px rgb(11 49 87 / 0.25)`): resting lift on navy buttons only.
-- **Bloque al pasar** (`box-shadow: 0 2px 8px rgb(11 49 87 / 0.14)`): appointment block on hover, together with raising it above neighbors.
-- **Segmento activo** (`box-shadow: 0 1px 2px rgb(36 48 61 / 0.12)`): the selected option of a segmented control.
-- Sheets, dialogs and menus keep the library's overlay shadow; it is never used on in-page content.
+### Vocabulario de sombras
+- **Botón primario** (`box-shadow: 0 1px 2px rgb(11 49 87 / 0.25)`): elevación en reposo, solo en botones marinos.
+- **Bloque al pasar** (`box-shadow: 0 2px 8px rgb(11 49 87 / 0.14)`): bloque de cita al pasar el cursor, junto con elevarlo sobre los vecinos.
+- **Segmento activo** (`box-shadow: 0 1px 2px rgb(36 48 61 / 0.12)`): la opción seleccionada de un control segmentado.
+- Hojas, diálogos y menús conservan la sombra de superposición de la librería; nunca se usa en contenido dentro de la página.
 
-### Named Rules
-**The Line Under Rule.** The red current-time line runs beneath the appointment blocks; blocks stay legible over it, and its time pill sits in the hour margin.
+### Reglas con nombre
+**Regla de la línea por debajo.** La línea roja de la hora actual pasa por debajo de los bloques de citas; los bloques se leen bien encima de ella y su etiqueta de hora queda en el margen de horas.
 
 ## Shapes
+_Formas_
 
-Gently rounded, almost square: 4.8px on buttons, inputs, nav items and containers, 5px on appointment blocks, 4px inside segmented controls, full round only for counters and status dots. Borders are 1px solid; the single dashed rule separates destructive actions. Status markers are 8px dots: filled red for new or pending, hollow graphite for handled, filled blue circle for confirmed and a blue rounded square for attended.
+Suavemente redondeado, casi cuadrado: 4.8px en botones, campos, elementos de navegación y contenedores; 5px en los bloques de citas; 4px dentro de los controles segmentados; redondo completo solo para contadores y puntos de estado. Los bordes son de 1px sólidos; la única línea discontinua separa las acciones destructivas. Los marcadores de estado son puntos de 8px: rojo relleno para nuevo o pendiente, grafito hueco para ya atendido por recepción, círculo azul relleno para confirmado y cuadrado azul redondeado para atendido.
 
 ## Components
+_Componentes_
 
-### Buttons
-Quiet and solid; one navy action per region.
-- **Shape:** gently rounded (rounded md).
-- **Primary:** navy fill, white 14px medium text, 36px tall; hover to marino claro; presses down 1px.
-- **Large:** 44px tall, 16px padding; used for the login submit and tablet-first actions.
-- **Outline:** paper fill, linea border, grafito text; hover bruma. Secondary choices ("Atendida", "Ya la contacté").
-- **Ghost:** transparent; hover bruma. Reversals ("Quitar confirmación", "No, mantenerla").
-- **Destructive:** transparent with a 30% destructive-red border and destructive text; hover 8% red wash.
-- **Focus:** blue ring (3px at 50%) plus the global 2px tinta-azul outline, offset 2px.
+### Botones
+Sobrios y sólidos; una sola acción marino por zona.
+- **Forma:** suavemente redondeada (rounded md).
+- **Primario:** relleno marino, texto blanco de 14px en peso medio, 36px de alto; al pasar el cursor pasa a marino claro; se hunde 1px al presionarlo.
+- **Grande:** 44px de alto y 16px de relleno; para el botón de entrar del login y las acciones pensadas para tablet.
+- **Contorno:** relleno papel, borde línea, texto grafito; al pasar el cursor, bruma. Opciones secundarias («Atendida», «Ya la contacté»).
+- **Fantasma:** transparente; al pasar el cursor, bruma. Para deshacer («Quitar confirmación», «No, mantenerla»).
+- **Destructivo:** transparente con borde rojo destructivo al 30% y texto destructivo; al pasar el cursor, un baño rojo del 8%.
+- **Foco:** anillo azul (3px al 50%) más el contorno global de 2px en tinta azul, separado 2px.
 
-### Inputs / Fields
-- **Style:** white surface, linea-fuerte border, 40px tall, rounded md; native select with a graphite chevron so tablets and phones open the system picker.
-- **Focus:** border turns tinta-azul with a 3px blue ring.
-- **Error:** destructive border; message below in 13px tinta-roja. Help text in 13px grafito suave.
-- **Field rhythm:** label 13px grafito, 6px gap to control, 6px gap to message; "(opcional)" in grafito suave.
+### Campos de formulario
+- **Estilo:** superficie blanca, borde línea fuerte, 40px de alto, rounded md; select nativo con flecha grafito para que tablets y teléfonos abran el selector del sistema.
+- **Foco:** el borde pasa a tinta azul con un anillo azul de 3px.
+- **Error:** borde destructivo; mensaje debajo en 13px tinta roja. El texto de ayuda va en 13px grafito suave.
+- **Ritmo:** etiqueta de 13px grafito, 6px hasta el control, 6px hasta el mensaje; «(opcional)» en grafito suave.
 
-### Navigation
-- **Sidebar:** navy, white emblem and clinic name, 40px items in marino-texto with 18px icons; hover marino claro with white text; active item is a white pill with navy text. The Agenda item carries the red pending-requests counter. User and role sit at the bottom above a white 10% rule.
-- **Mobile:** navy 56px top bar with emblem and "Salir"; white bottom bar with 64px tabs, active tab navy semibold, red counter on the icon.
+### Navegación
+- **Barra lateral:** marino, emblema blanco y nombre de la clínica, elementos de 40px en marino-texto con iconos de 18px; al pasar el cursor, marino claro con texto blanco; el elemento activo es una pastilla blanca con texto marino. «Agenda» lleva el contador rojo de solicitudes pendientes. Usuario y rol van abajo, sobre una línea blanca al 10%.
+- **Móvil:** barra superior marino de 56px con emblema y «Salir»; barra inferior blanca con pestañas de 64px, pestaña activa marino en semibold y contador rojo sobre el icono.
 
-### Appointment Block (signature)
-- **Por confirmar:** white fill, red outline at 55%, red time.
-- **Confirmada:** blue tint fill, blue outline at 35%, blue time and status.
-- **Atendida:** solid blue, white text at 85% for meta.
-- **Content:** time range, patient name semibold, treatment in grafito suave, status label when the block is tall enough. The whole block is one button whose accessible name reads time, patient, treatment and status.
+### Bloque de cita (elemento distintivo)
+- **Por confirmar:** relleno blanco, contorno rojo al 55%, hora en rojo.
+- **Confirmada:** relleno de tinte azul, contorno azul al 35%, hora y estado en azul.
+- **Atendida:** azul sólido, texto blanco al 85% para los datos secundarios.
+- **Contenido:** rango de hora, nombre del paciente en semibold, tratamiento en grafito suave y etiqueta de estado cuando el bloque es lo bastante alto. Todo el bloque es un solo botón cuyo nombre accesible lee hora, paciente, tratamiento y estado.
 
-### Web Request Row
-Red dot and "Nueva" in red for new requests, hollow graphite dot and "Contactada" once handled; WhatsApp-linked phone in tabular figures; navy "Agendar", outline "Ya la contacté", and destructive "Descartar solicitud" tucked in the overflow menu with an undo toast.
+### Fila de solicitud web
+Punto rojo y «Nueva» en rojo para las solicitudes nuevas; punto grafito hueco y «Contactada» cuando ya se atendió; teléfono con enlace a WhatsApp en cifras tabulares; «Agendar» en marino, «Ya la contacté» con contorno y «Descartar solicitud» (destructivo) guardado en el menú de más acciones, con un aviso para deshacer.
 
-### Odontograma (signature)
-One SVG chart in FDI order, faithful to the printed chart: per arch, the outer lateral view (roots up), the occlusal view and the inner lateral view (roots down); upper arch reads bucal / oclusal / palatina, lower arch lingual / oclusal / bucal. Quadrant names sit at the arch corners, tooth numbers in bold tabular figures, a dashed midline per arch. Each tooth is a button and each surface (mesial, distal, vestibular, palatina or lingual, oclusal or incisal, cervical, radicular) is a hit area that preselects that surface in the panel. Enamel carries a faint vertical gradient and roots a warm cream gradient; molars show occlusal grooves. Implants replace the roots with a threaded screw and abutment in implant blue; endodontics draws an orange canal inside each root. The selected tooth gets a tinta-azul outline on azul-fondo. Permanent / temporal dentition switch above the chart; legend below it. From 1280px the tooth panel docks right (23rem); below, it opens as a right sheet; on phones the chart scrolls horizontally at a 44rem minimum so teeth stay tappable.
+### Odontograma (elemento distintivo)
+Un solo gráfico SVG en orden FDI, fiel a la ficha impresa: por arcada, la vista lateral externa (raíces hacia arriba), la vista oclusal y la vista lateral interna (raíces hacia abajo); la arcada superior se lee bucal / oclusal / palatina y la inferior lingual / oclusal / bucal. Los nombres de los cuadrantes van en las esquinas de cada arcada, los números de pieza en negrita con cifras tabulares, y hay una línea media discontinua por arcada. Cada pieza es un botón y cada superficie (mesial, distal, vestibular, palatina o lingual, oclusal o incisal, cervical, radicular) es una zona táctil que preselecciona esa superficie en el panel. El esmalte lleva un degradado vertical suave y las raíces un degradado crema cálido; los molares muestran surcos oclusales. Los implantes reemplazan las raíces por un tornillo roscado con su pilar en azul implante; la endodoncia dibuja un conducto naranja dentro de cada raíz. La pieza seleccionada recibe un contorno tinta azul sobre fondo azul. El cambio de dentición permanente / temporal va sobre el gráfico y la leyenda debajo. En teléfonos el gráfico se desplaza en horizontal con un mínimo de 44rem para que las piezas sigan siendo fáciles de tocar.
 
-Findings are never edited: the panel offers "Marcar realizado" (adds a new realizado finding) and "Anular" with a required reason; voided findings stay struck through in the tooth history.
+Los hallazgos nunca se editan: el panel ofrece «Marcar realizado» (agrega un hallazgo nuevo como realizado) y «Anular» con motivo obligatorio; los hallazgos anulados quedan tachados en el historial de la pieza.
 
-### Appointment Sheet
-Right sheet on all sizes: patient, date and time in tabular figures, status label in its ink, a definition list, a WhatsApp confirmation checklist (blue check when done, red hollow ring when pending), then the action bar. Destructive actions sit below a dashed linea-fuerte rule and open an inline confirmation with an optional reason before anything is cancelled.
+### Detalle de la cita
+Hoja lateral derecha en todos los tamaños: paciente, fecha y hora en cifras tabulares, estado en su tinta, una lista de datos, la lista de confirmación por WhatsApp (marca azul cuando está hecho, anillo rojo hueco cuando está pendiente) y luego la barra de acciones. Las acciones destructivas van debajo de una línea discontinua y abren una confirmación en la misma hoja, con motivo opcional, antes de cancelar nada.
 
 ## Do's and Don'ts
+_Qué hacer y qué no_
 
-### Do:
-- **Do** map every appointment state through the ink table: pending red outline, confirmed blue tint, attended solid blue, off-grid graphite with strike-through.
-- **Do** keep navy for the brand bar and the primary action of each region.
-- **Do** size block height to exact duration at 76px per hour.
-- **Do** set times, counts, phones and Lempira amounts in tabular figures, with non-breaking spaces inside formatted times.
-- **Do** separate destructive actions from the main action with a dashed rule and an inline confirmation.
-- **Do** keep controls at tablet size: 36px minimum for buttons, 40px inputs, 44px for primary touch actions.
-- **Do** format in es-HN, Lempiras (`L` prefix, two decimals) and America/Tegucigalpa.
+### Hacer:
+- **Sí** pasar todo estado de cita por la tabla de tintas: pendiente con contorno rojo, confirmada con tinte azul, atendida azul sólido, fuera de la agenda en grafito tachado.
+- **Sí** reservar el marino para la barra de marca y la acción principal de cada zona.
+- **Sí** hacer que la altura del bloque sea la duración exacta, a 76px por hora.
+- **Sí** poner horas, conteos, teléfonos y montos en Lempiras con cifras tabulares, con espacios de no separación dentro de las horas.
+- **Sí** separar las acciones destructivas de la acción principal con una línea discontinua y una confirmación.
+- **Sí** mantener los controles a tamaño de tablet: mínimo 36px en botones, 40px en campos y 44px en las acciones táctiles principales.
+- **Sí** formatear en es-HN, Lempiras (prefijo `L`, dos decimales) y America/Tegucigalpa.
 
-### Don't:
-- **Don't** introduce a third state color (green, amber, purple) or a color per treatment or doctor outside the odontogram; the clinical legend lives only in the odontogram and its chips.
-- **Don't** use navy or tinta-azul as decoration; blue on a record always asserts that something is confirmed or done.
-- **Don't** add a dark theme.
-- **Don't** build KPI cards or tinted stat tiles; counts live in the header legend as text with ink dots.
-- **Don't** put a destructive button next to the primary action without the dashed separation and confirmation.
-- **Don't** draw the current-time line over appointment blocks.
+### No hacer:
+- **No** introducir un tercer color de estado (verde, ámbar, morado) ni un color por tratamiento o por doctor fuera del odontograma; la leyenda clínica vive solo en el odontograma y sus muestras.
+- **No** usar marino ni tinta azul como decoración; el azul sobre un registro siempre afirma que algo está confirmado o hecho.
+- **No** agregar un tema oscuro.
+- **No** construir tarjetas KPI ni recuadros de estadísticas teñidos; los conteos viven en la leyenda del encabezado como texto con puntos de tinta.
+- **No** poner un botón destructivo junto a la acción principal sin la separación discontinua y la confirmación.
+- **No** dibujar la línea de la hora actual por encima de los bloques de citas.
