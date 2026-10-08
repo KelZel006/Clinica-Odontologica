@@ -4,6 +4,7 @@ import { Encabezado } from "@/components/encabezado";
 import { createClient } from "@/lib/supabase/server";
 import { exigirPermiso } from "@/lib/sesion";
 import { mostrarTelefono } from "@/lib/telefono";
+import { mostrarDNI } from "@/lib/dni";
 import { FormularioPaciente } from "../../formulario-paciente";
 
 export const metadata: Metadata = { title: "Editar paciente" };
@@ -30,7 +31,7 @@ export default async function EditarPacientePage({ params }: PageProps<"/pacient
             correo: p.correo ?? "",
             fecha_nacimiento: p.fecha_nacimiento ?? "",
             sexo: p.sexo ?? "",
-            identidad: p.identidad ?? "",
+            identidad: p.identidad ? mostrarDNI(p.identidad) : "",
             ocupacion: p.ocupacion ?? "",
             direccion: p.direccion ?? "",
             contacto_emergencia: p.contacto_emergencia ?? "",

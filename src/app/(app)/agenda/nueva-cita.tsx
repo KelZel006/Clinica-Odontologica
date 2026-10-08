@@ -103,7 +103,7 @@ export function NuevaCita({
     if (modo === "existente" && !paciente) return setError("Busca y elige al paciente, o registra uno nuevo.");
     if (modo === "nuevo" && !nombre.trim()) return setError("Escribe el nombre del paciente.");
     if (modo === "nuevo" && !normalizarTelefono(telefono))
-      return setError("El teléfono debe tener 8 dígitos (o incluir el código de país).");
+      return setError("El teléfono debe tener 8 dígitos.");
     if (!elegido) return setError("Elige una hora disponible.");
 
     const datos = new FormData();

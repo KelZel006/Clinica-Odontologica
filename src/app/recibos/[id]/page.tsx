@@ -7,6 +7,7 @@ import { capitalizar, diaLargo, fecha, hora, hoyISO } from "@/lib/fechas";
 import { lempiras, montoEnLetras } from "@/lib/lempiras";
 import { ETIQUETA_METODO, uuidValido } from "@/lib/finanzas";
 import { mostrarTelefono } from "@/lib/telefono";
+import { mostrarDNI } from "@/lib/dni";
 import { BotonImprimir } from "./boton-imprimir";
 
 export const metadata: Metadata = { title: "Recibo" };
@@ -56,7 +57,8 @@ export default async function ReciboPage({ params }: PageProps<"/recibos/[id]">)
             <div>
               <p className="text-base font-semibold text-marino">Dr. Elías Renato Chirinos</p>
               <p className="text-[0.8125rem] text-grafito-suave">Cirujano dentista e implantólogo</p>
-              <p className="text-[0.8125rem] text-grafito-suave">Tegucigalpa, Honduras</p>
+              <p className="text-[0.8125rem] text-grafito-suave">Barrio Abajo, frente a Ferretería Manineña</p>
+              <p className="text-[0.8125rem] text-grafito-suave">Danlí, El Paraíso, Honduras</p>
             </div>
           </div>
           <div className="text-right">
@@ -77,7 +79,7 @@ export default async function ReciboPage({ params }: PageProps<"/recibos/[id]">)
           <span className="cifras">
             N.º {a.pacientes?.numero_expediente}
             {a.pacientes?.telefono && ` · ${mostrarTelefono(a.pacientes.telefono)}`}
-            {a.pacientes?.identidad && ` · DNI ${a.pacientes.identidad}`}
+            {a.pacientes?.identidad && ` · DNI ${mostrarDNI(a.pacientes.identidad)}`}
           </span>
           <span className="text-grafito-suave">La cantidad de</span>
           <span className={a.anulado ? "line-through" : undefined}>{montoEnLetras(Number(a.monto))}</span>

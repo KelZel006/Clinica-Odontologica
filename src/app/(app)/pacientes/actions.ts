@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getSesion, puede } from "@/lib/sesion";
 import { esFechaISO } from "@/lib/fechas";
 import { normalizarTelefono } from "@/lib/telefono";
+import { normalizarDNI } from "@/lib/dni";
 
 export type EstadoPaciente = {
   error?: string;
@@ -39,13 +40,13 @@ export async function guardarPaciente(_: EstadoPaciente, formData: FormData): Pr
 
   if (!valores.nombre_completo) errores.nombre_completo = "Escribe el nombre completo.";
   const telefono = normalizarTelefono(valores.telefono);
-  if (!telefono) errores.telefono = "Debe tener 8 dígitos (o incluir el código de país).";
+  if (!telefono) errores.telefono = "Debe tener 8 dígitos.";
   const telEmergencia = valores.telefono_emergencia ? normalizarTelefono(valores.telefono_emergencia) : null;
-  if (valores.telefono_emergencia && !telEmergencia) errores.telefono_emergencia = "Revisa el número: 8 dígitos.";
+  if (valores.telefono_emergencia && !telEmergencia) errores.telefono_emergencia = "Debe tener 8 dígitos.";
   if (valores.fecha_nacimiento && (!esFechaISO(valores.fecha_nacimiento) || valores.fecha_nacimiento > new Date().toISOString().slice(0, 10)))
     errores.fecha_nacimiento = "La fecha no es válida.";
-  if (valores.identidad && !/^\d{4}-?\d{4}-?\d{5}$/.test(valores.identidad))
-    errores.identidad = "El DNI tiene 13 dígitos (0801-1990-12345).";
+  const identidad = valores.identidad ? normalizarDNI(valores.identidad) : null;
+  if (valores.identidad && !identidad) errores.identidad = "El DNI debe tener 13 dígitos (0801-1990-12345).";
 
   if (Object.keys(errores).length) return { errores, valores };
 
@@ -56,7 +57,7 @@ export async function guardarPaciente(_: EstadoPaciente, formData: FormData): Pr
     correo: vacioANull(valores.correo),
     fecha_nacimiento: vacioANull(valores.fecha_nacimiento),
     sexo: (["F", "M", "otro"].includes(valores.sexo) ? valores.sexo : null) as "F" | "M" | "otro" | null,
-    identidad: valores.identidad ? valores.identidad.replace(/\D/g, "").replace(/^(\d{4})(\d{4})(\d{5})$/, "$1-$2-$3") : null,
+    identidad,
     ocupacion: vacioANull(valores.ocupacion),
     direccion: vacioANull(valores.direccion),
     contacto_emergencia: vacioANull(valores.contacto_emergencia),
@@ -85,4 +86,21 @@ export async function guardarPaciente(_: EstadoPaciente, formData: FormData): Pr
 
   revalidatePath("/pacientes");
   redirect(`/pacientes/${data.id}`);
+}
+
+/** Elimina a quien nunca fue atendido. Las reglas viven en eliminar_paciente_sin_atencion(). */
+export async function eliminarPaciente(id: string): Promise<{ ok: true; mensaje: string } | { ok: false; error: string }> {
+  const sesion = await getSesion();
+  if (!puede(sesion, "pacientes.eliminar")) return { ok: false, error: "Tu rol no puede eliminar pacientes." };
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("eliminar_paciente_sin_atencion", { p_paciente: id });
+  if (error || !data) return { ok: false, error: "No se pudo eliminar. Revisa tu conexión e intenta de nuevo." };
+
+  const r = data as { ok: boolean; mensaje: string };
+  if (!r.ok) return { ok: false, error: r.mensaje };
+
+  revalidatePath("/pacientes");
+  revalidatePath("/agenda");
+  return { ok: true, mensaje: r.mensaje };
 }

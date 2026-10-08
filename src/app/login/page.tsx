@@ -27,7 +27,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
             </li>
           </ul>
         </div>
-        <p className="text-sm text-marino-texto">Tegucigalpa · Lun–Vie 8:00–18:00 · Sáb 8:00–13:00</p>
+        <p className="text-sm text-marino-texto">Danlí, El Paraíso · Lun–Vie 8:00–18:00 · Sáb 8:00–13:00</p>
       </section>
 
       <section className="flex items-center justify-center bg-superficie px-4 py-10 sm:px-8">

@@ -42,8 +42,8 @@ export function FormularioPaciente({ inicial, volverA }: { inicial?: DatosPacien
             <option value="otro">Otro</option>
           </NativeSelect>
         </Campo>
-        <Campo id="identidad" etiqueta="DNI" error={e.identidad} opcional>
-          <Input id="identidad" name="identidad" defaultValue={v("identidad")} inputMode="numeric" placeholder="0801-1990-12345" className="cifras" aria-invalid={!!e.identidad || undefined} />
+        <Campo id="identidad" etiqueta="DNI" error={e.identidad} ayuda="13 dígitos, con o sin guiones" opcional>
+          <Input id="identidad" name="identidad" defaultValue={v("identidad")} inputMode="numeric" placeholder="0801-1990-12345" maxLength={15} className="cifras" aria-invalid={!!e.identidad || undefined} />
         </Campo>
         <Campo id="ocupacion" etiqueta="Ocupación" opcional>
           <Input id="ocupacion" name="ocupacion" defaultValue={v("ocupacion")} />
@@ -57,7 +57,7 @@ export function FormularioPaciente({ inicial, volverA }: { inicial?: DatosPacien
         <Campo id="contacto_emergencia" etiqueta="Nombre y parentesco" opcional>
           <Input id="contacto_emergencia" name="contacto_emergencia" defaultValue={v("contacto_emergencia")} placeholder="Ej.: María López (hija)" />
         </Campo>
-        <Campo id="telefono_emergencia" etiqueta="Teléfono" error={e.telefono_emergencia} opcional>
+        <Campo id="telefono_emergencia" etiqueta="Teléfono" error={e.telefono_emergencia} ayuda="8 dígitos" opcional>
           <Input id="telefono_emergencia" name="telefono_emergencia" defaultValue={v("telefono_emergencia")} inputMode="tel" className="cifras" aria-invalid={!!e.telefono_emergencia || undefined} />
         </Campo>
       </Seccion>

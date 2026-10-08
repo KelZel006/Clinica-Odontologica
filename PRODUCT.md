@@ -30,7 +30,8 @@ Hecho a la medida de una clínica de implantología en Honduras: el flujo de age
 ## Operating Context
 
 - **Prioridad 1: Citas y agenda.** Recibir las solicitudes de la web (vía n8n, tabla `solicitudes_cita`), convertirlas en citas y organizar la agenda del doctor.
-- Horario: lunes a viernes 8:00–18:00, sábado 8:00–13:00. Zona horaria America/Tegucigalpa.
+- Ubicación: Danlí, El Paraíso, Honduras (Barrio Abajo, frente a Ferretería Manineña).
+- Horario: lunes a viernes 8:00–18:00, sábado 8:00–13:00. Zona horaria America/Tegucigalpa (la oficial de todo Honduras; no es la dirección).
 - Dispositivos: computadora en recepción y consultorio; tablet en el sillón para odontograma y notas; teléfono para consultar la agenda o un paciente fuera de la clínica.
 - Idioma: español (Honduras). Moneda: Lempiras (L).
 

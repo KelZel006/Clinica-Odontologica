@@ -8,6 +8,7 @@ import { exigirPermiso, puede } from "@/lib/sesion";
 import { edad } from "@/lib/fechas";
 import { enlaceWhatsApp, mostrarTelefono } from "@/lib/telefono";
 import { Pestanas } from "./pestanas";
+import { EliminarPaciente } from "./eliminar-paciente";
 
 export default async function FichaLayout({ children, params }: LayoutProps<"/pacientes/[id]">) {
   const sesion = await exigirPermiso("pacientes.ver");
@@ -21,6 +22,11 @@ export default async function FichaLayout({ children, params }: LayoutProps<"/pa
     .eq("id", id)
     .maybeSingle();
   if (!p) notFound();
+
+  const puedeEliminar = puede(sesion, "pacientes.eliminar");
+  const bloqueoEliminar = puedeEliminar
+    ? ((await supabase.rpc("motivo_no_eliminable", { p_paciente: p.id })).data ?? null)
+    : null;
 
   const años = edad(p.fecha_nacimiento);
   const clinico = puede(sesion, "expediente.ver");
@@ -59,6 +65,7 @@ export default async function FichaLayout({ children, params }: LayoutProps<"/pa
             Editar datos
           </Link>
         )}
+        {puedeEliminar && <EliminarPaciente pacienteId={p.id} nombre={p.nombre_completo} bloqueo={bloqueoEliminar} />}
       </Encabezado>
       {(clinico || finanzas) && <Pestanas pacienteId={p.id} clinico={clinico} finanzas={finanzas} />}
       {children}

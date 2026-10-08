@@ -93,7 +93,7 @@ export async function crearCita(formData: FormData): Promise<Resultado> {
   if (!idPaciente) {
     if (!nombre) return { ok: false, error: "Escribe el nombre del paciente." };
     const telefono = normalizarTelefono(telefonoCrudo);
-    if (!telefono) return { ok: false, error: "El teléfono debe tener 8 dígitos (o incluir el código de país)." };
+    if (!telefono) return { ok: false, error: "El teléfono debe tener 8 dígitos." };
 
     // El teléfono es único: si ya existe, la cita se asigna a ese paciente en lugar de duplicarlo.
     const { data: existente } = await supabase

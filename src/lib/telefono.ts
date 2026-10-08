@@ -1,15 +1,14 @@
-// Teléfonos en formato E.164 (+50499998888), igual que en la tabla pacientes.
+// Teléfonos hondureños de 8 dígitos, guardados como +504XXXXXXXX (igual que en la base de datos,
+// que rechaza cualquier otro formato).
 
 /** Normaliza lo que escribe recepción: "9999-8888", "+504 9999 8888", "50499998888". */
 export function normalizarTelefono(valor: string) {
-  const digitos = valor.replace(/\D/g, "");
-  if (digitos.length === 8) return `+504${digitos}`;
-  if (digitos.length === 11 && digitos.startsWith("504")) return `+${digitos}`;
-  if (valor.trim().startsWith("+") && digitos.length >= 8) return `+${digitos}`;
-  return null;
+  let digitos = valor.replace(/\D/g, "");
+  if (digitos.length === 11 && digitos.startsWith("504")) digitos = digitos.slice(3);
+  return digitos.length === 8 ? `+504${digitos}` : null;
 }
 
-/** +50499998888 → 9999-8888 (o el número completo si es extranjero). */
+/** +50499998888 → 9999-8888. */
 export function mostrarTelefono(e164: string) {
   const m = /^\+504(\d{4})(\d{4})$/.exec(e164);
   return m ? `${m[1]}-${m[2]}` : e164;

@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { exigirPermiso, puede } from "@/lib/sesion";
 import { capitalizar, diaCorto, fecha, hora, hoyISO } from "@/lib/fechas";
 import { mostrarTelefono } from "@/lib/telefono";
+import { mostrarDNI } from "@/lib/dni";
 import { ESTADOS } from "../../../agenda/tipos";
 
 export const metadata: Metadata = { title: "Ficha del paciente" };
@@ -53,7 +54,7 @@ export default async function PacientePage({ params }: PageProps<"/pacientes/[id
           <Bloque titulo="Datos generales" lista>
             <Fila etiqueta="Fecha de nacimiento" valor={p.fecha_nacimiento ? fecha(p.fecha_nacimiento) : null} />
             <Fila etiqueta="Sexo" valor={p.sexo ? SEXO[p.sexo] : null} />
-            <Fila etiqueta="DNI" valor={p.identidad} cifras />
+            <Fila etiqueta="DNI" valor={p.identidad && mostrarDNI(p.identidad)} cifras />
             <Fila etiqueta="Correo" valor={p.correo} />
             <Fila etiqueta="Ocupación" valor={p.ocupacion} />
             <Fila etiqueta="Dirección" valor={p.direccion} />

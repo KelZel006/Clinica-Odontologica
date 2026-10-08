@@ -895,7 +895,10 @@ isOneToOne: false
                 }
           }
           Functions: {
-            "generar_cuotas":
+            "eliminar_paciente_sin_atencion":
+{ Args: { "p_paciente": string }; Returns: Json
+                           },
+"generar_cuotas":
 { Args: { "p_plan_pago_id": string }; Returns: {
               "estado": Database["public"]['Enums']["estado_cuota"],
 "fecha_vencimiento": string,
@@ -917,6 +920,9 @@ isOneToOne: false
                            },
 "mis_permisos":
 { Args: Record<PropertyKey, never>; Returns: string[]
+                           },
+"motivo_no_eliminable":
+{ Args: { "p_paciente": string }; Returns: string
                            },
 "nombres_personal":
 { Args: { "p_ids": (string)[] }; Returns: {
