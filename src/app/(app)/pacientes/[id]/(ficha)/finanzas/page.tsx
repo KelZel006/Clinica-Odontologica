@@ -32,7 +32,7 @@ export default async function FinanzasPacientePage({ params }: PageProps<"/pacie
       .order("numero"),
     supabase
       .from("abonos")
-      .select("id, plan_tratamiento_id, cuota_id, monto, metodo, referencia, recibo_numero, pagado_at, concepto, notas, anulado, motivo_anulacion, recibido_por")
+      .select("id, plan_tratamiento_id, cuota_id, monto, metodo, referencia, recibo_numero, pagado_at, concepto, notas, anulado, motivo_anulacion, recibido_por, por_pagar_despues")
       .eq("paciente_id", id)
       .order("pagado_at", { ascending: false }),
     supabase.from("v_estado_cuenta").select("costo_total, total_abonado, por_pagar").eq("paciente_id", id).maybeSingle(),
@@ -106,6 +106,7 @@ export default async function FinanzasPacientePage({ params }: PageProps<"/pacie
     anulado: a.anulado,
     motivoAnulacion: a.motivo_anulacion,
     recibidoPor: a.recibido_por ? (nombre.get(a.recibido_por) ?? null) : null,
+    porPagarDespues: a.por_pagar_despues !== null ? Number(a.por_pagar_despues) : null,
   }));
 
   const error = [planes, saldos, planesPago, cuotas, abonos].find((r) => r.error)?.error;

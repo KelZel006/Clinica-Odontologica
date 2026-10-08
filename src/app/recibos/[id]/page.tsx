@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getSesion, puede } from "@/lib/sesion";
-import { capitalizar, diaLargo, fecha, hora, hoyISO } from "@/lib/fechas";
+import { capitalizar, diaLargo, hora, hoyISO } from "@/lib/fechas";
 import { lempiras, montoEnLetras } from "@/lib/lempiras";
 import { ETIQUETA_METODO, uuidValido } from "@/lib/finanzas";
 import { mostrarTelefono } from "@/lib/telefono";
@@ -22,18 +22,18 @@ export default async function ReciboPage({ params }: PageProps<"/recibos/[id]">)
   const { data: a } = await supabase
     .from("abonos")
     .select(
-      "id, monto, metodo, referencia, recibo_numero, pagado_at, concepto, notas, anulado, motivo_anulacion, recibido_por, plan_tratamiento_id, cuota_id, pacientes(nombre_completo, numero_expediente, telefono, identidad), planes_tratamiento(titulo), cuotas(numero)",
+      "id, monto, metodo, referencia, recibo_numero, pagado_at, concepto, notas, anulado, motivo_anulacion, recibido_por, plan_tratamiento_id, cuota_id, costo_al_momento, abonado_antes, por_pagar_despues, pacientes(nombre_completo, numero_expediente, telefono, identidad), planes_tratamiento(titulo), cuotas(numero)",
     )
     .eq("id", id)
     .maybeSingle();
   if (!a) notFound();
 
-  const [{ data: saldo }, { data: nombres }] = await Promise.all([
-    a.plan_tratamiento_id
-      ? supabase.from("v_saldo_planes").select("total, pagado, saldo").eq("plan_id", a.plan_tratamiento_id).maybeSingle()
-      : Promise.resolve({ data: null }),
-    a.recibido_por ? supabase.rpc("nombres_personal", { p_ids: [a.recibido_por] }) : Promise.resolve({ data: [] }),
-  ]);
+  const { data: nombres } = a.recibido_por ? await supabase.rpc("nombres_personal", { p_ids: [a.recibido_por] }) : { data: [] };
+  // Fotografía guardada al registrar el abono: el saldo de ESE momento, no el de hoy.
+  const foto =
+    a.costo_al_momento !== null && a.abonado_antes !== null && a.por_pagar_despues !== null
+      ? { costo: Number(a.costo_al_momento), antes: Number(a.abonado_antes), despues: Number(a.por_pagar_despues) }
+      : null;
   const recibidoPor = nombres?.[0]?.nombre ?? null;
   const numero = String(a.recibo_numero).padStart(6, "0");
   const dia = hoyISO(new Date(a.pagado_at));
@@ -65,7 +65,7 @@ export default async function ReciboPage({ params }: PageProps<"/recibos/[id]">)
             <p className="text-[0.8125rem] font-semibold text-grafito-suave">RECIBO DE ABONO</p>
             <p className="cifras text-2xl font-semibold text-marino">N.º {numero}</p>
             <p className="cifras mt-1 text-[0.8125rem] text-grafito-suave">
-              {capitalizar(diaLargo(dia))}, {fecha(a.pagado_at)}
+              {capitalizar(diaLargo(dia))} de {dia.slice(0, 4)}
               <br />
               {hora(a.pagado_at)}
             </p>
@@ -107,14 +107,18 @@ export default async function ReciboPage({ params }: PageProps<"/recibos/[id]">)
             <p className="text-[0.8125rem] font-semibold text-azul">ABONADO EN ESTE RECIBO</p>
             <p className={`cifras text-3xl font-semibold text-marino ${a.anulado ? "line-through" : ""}`}>{lempiras(a.monto)}</p>
           </div>
-          {saldo && (
+          {foto && (
             <dl className="cifras grid grid-cols-[auto_auto] gap-x-6 gap-y-1 text-sm">
               <dt className="text-grafito-suave">Costo del tratamiento</dt>
-              <dd className="text-right">{lempiras(saldo.total)}</dd>
+              <dd className="text-right">{lempiras(foto.costo)}</dd>
+              <dt className="text-grafito-suave">Abonado antes de este recibo</dt>
+              <dd className="text-right">{lempiras(foto.antes)}</dd>
+              <dt className="text-grafito-suave">Este abono</dt>
+              <dd className="text-right text-azul">{lempiras(a.monto)}</dd>
               <dt className="text-grafito-suave">Total abonado</dt>
-              <dd className="text-right text-azul">{lempiras(saldo.pagado)}</dd>
-              <dt className="font-semibold">POR PAGAR</dt>
-              <dd className="text-right font-semibold text-rojo">{lempiras(saldo.saldo)}</dd>
+              <dd className="text-right text-azul">{lempiras(foto.antes + Number(a.monto))}</dd>
+              <dt className="font-semibold">POR PAGAR después de este abono</dt>
+              <dd className={`text-right font-semibold ${foto.despues > 0 ? "text-rojo" : "text-grafito"}`}>{lempiras(Math.max(foto.despues, 0))}</dd>
             </dl>
           )}
         </section>
@@ -128,7 +132,7 @@ export default async function ReciboPage({ params }: PageProps<"/recibos/[id]">)
           </div>
         </footer>
         <p className="mt-8 text-center text-[0.75rem] text-grafito-suave">
-          Saldos a la fecha y hora de emisión de este recibo. Montos en Lempiras (HNL).
+          Saldos al momento de este abono ({capitalizar(diaLargo(dia))} de {dia.slice(0, 4)}, {hora(a.pagado_at)}). No cambian con pagos posteriores. Montos en Lempiras (HNL).
         </p>
       </article>
     </main>

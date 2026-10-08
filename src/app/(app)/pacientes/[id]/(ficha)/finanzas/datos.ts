@@ -44,6 +44,7 @@ export type Abono = {
   anulado: boolean;
   motivoAnulacion: string | null;
   recibidoPor: string | null;
+  porPagarDespues: number | null;
 };
 
 export type Plan = {

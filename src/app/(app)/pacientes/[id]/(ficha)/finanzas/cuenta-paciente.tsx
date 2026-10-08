@@ -377,6 +377,7 @@ function TablaAbonos({ pacienteId, abonos, puedeCobrar }: { pacienteId: string; 
             <th scope="col" className="px-3 py-2 font-medium">Método</th>
             <th scope="col" className="px-3 py-2 font-medium">Recibo</th>
             <th scope="col" className="px-3 py-2 text-right font-medium">Abonado</th>
+            <th scope="col" className="px-3 py-2 text-right font-medium">Quedó por pagar</th>
             <th scope="col" className="px-3 py-2">
               <span className="sr-only">Acciones</span>
             </th>
@@ -425,6 +426,9 @@ function FilaAbono({ pacienteId, abono: a, puedeCobrar }: { pacienteId: string; 
           </Link>
         </td>
         <td className={cn("cifras px-3 py-2 text-right font-semibold whitespace-nowrap", a.anulado ? "line-through" : "text-azul")}>{lempiras(a.monto)}</td>
+        <td className={cn("cifras px-3 py-2 text-right whitespace-nowrap", a.anulado && "line-through")}>
+          {a.porPagarDespues !== null ? lempiras(Math.max(a.porPagarDespues, 0)) : "—"}
+        </td>
         <td className="px-3 py-2 text-right">
           {puedeCobrar && !a.anulado && !anulando && (
             <Button size="sm" variant="ghost" className="text-grafito-suave" onClick={() => setAnulando(true)}>
@@ -435,7 +439,7 @@ function FilaAbono({ pacienteId, abono: a, puedeCobrar }: { pacienteId: string; 
       </tr>
       {anulando && (
         <tr>
-          <td colSpan={6} className="bg-papel px-3 py-3">
+          <td colSpan={7} className="bg-papel px-3 py-3">
             <div className="flex flex-wrap items-end gap-2">
               <label className="grid flex-1 gap-1 text-[0.8125rem] font-medium">
                 ¿Por qué se anula el recibo {String(a.recibo).padStart(6, "0")}? Queda en el historial.
