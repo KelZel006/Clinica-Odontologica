@@ -218,7 +218,7 @@ function SeccionPlan({
               <th scope="col" className="px-2 py-2 font-medium">Partida</th>
               <th scope="col" className="px-2 py-2 font-medium">Pieza</th>
               <th scope="col" className="px-2 py-2 text-right font-medium">Cant.</th>
-              <th scope="col" className="px-2 py-2 text-right font-medium">Precio</th>
+              <th scope="col" className="px-2 py-2 text-right font-medium">Precio por pieza</th>
               <th scope="col" className="px-4 py-2 text-right font-medium">Subtotal</th>
             </tr>
           </thead>

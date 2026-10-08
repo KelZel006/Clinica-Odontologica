@@ -126,16 +126,17 @@ export function FormularioPlan({
 
       <fieldset className="grid gap-2">
         <legend className="mb-1 text-sm font-semibold">Partidas</legend>
-        <div className="hidden grid-cols-[minmax(10rem,14rem)_1fr_5rem_4.5rem_8rem_2.25rem] gap-2 text-[0.75rem] text-grafito-suave lg:grid">
+        <p className="-mt-1 mb-1 text-[0.8125rem] text-grafito-suave">El precio es por pieza: el subtotal de cada partida es cantidad × precio por pieza.</p>
+        <div className="hidden grid-cols-[minmax(10rem,14rem)_1fr_5rem_4.5rem_10rem_2.25rem] gap-2 text-[0.75rem] text-grafito-suave lg:grid">
           <span>Del catálogo</span>
           <span>Descripción</span>
           <span>Pieza</span>
           <span>Cant.</span>
-          <span>Precio (Lps)</span>
+          <span>Precio por pieza (Lps)</span>
           <span />
         </div>
         {partidas.map((p, i) => (
-          <div key={i} className="grid gap-2 rounded-md border border-linea bg-superficie p-3 lg:grid-cols-[minmax(10rem,14rem)_1fr_5rem_4.5rem_8rem_2.25rem] lg:border-0 lg:bg-transparent lg:p-0">
+          <div key={i} className="grid gap-2 rounded-md border border-linea bg-superficie p-3 lg:grid-cols-[minmax(10rem,14rem)_1fr_5rem_4.5rem_10rem_2.25rem] lg:border-0 lg:bg-transparent lg:p-0">
             <NativeSelect aria-label={`Tratamiento de la partida ${i + 1}`} value={p.tratamientoId ?? ""} onChange={(e) => elegirTratamiento(i, e.target.value)}>
               <option value="">Otro / libre</option>
               {catalogo.map((t) => (
@@ -147,7 +148,7 @@ export function FormularioPlan({
             <Input aria-label={`Descripción de la partida ${i + 1}`} value={p.descripcion} onChange={(e) => cambiar(i, { descripcion: e.target.value })} placeholder="Descripción" />
             <Input aria-label={`Pieza de la partida ${i + 1}`} value={p.pieza} onChange={(e) => cambiar(i, { pieza: e.target.value })} inputMode="numeric" className="cifras" placeholder="Pieza" />
             <Input aria-label={`Cantidad de la partida ${i + 1}`} value={p.cantidad} onChange={(e) => cambiar(i, { cantidad: e.target.value })} inputMode="numeric" className="cifras" />
-            <Input aria-label={`Precio de la partida ${i + 1}`} value={p.precio} onChange={(e) => cambiar(i, { precio: e.target.value })} inputMode="decimal" className="cifras text-right" placeholder="0.00" />
+            <Input aria-label={`Precio por pieza de la partida ${i + 1}`} value={p.precio} onChange={(e) => cambiar(i, { precio: e.target.value })} inputMode="decimal" className="cifras text-right" placeholder="0.00" />
             <Button
               type="button"
               variant="ghost"
